@@ -16,10 +16,10 @@
                 </div>
                 <div class="col-md-6">
                     <a href="{{ route('users.export') }}" class="btn btn-sm btn-success">
-                        <i class="fas fa-check"></i> Export To Excel
+                        <i class="fas fa-check"></i> Exportar a Excel
                     </a>
                 </div>
-                
+
             </div>
 
         </div>
@@ -38,12 +38,12 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th width="20%">Name</th>
+                                <th width="20%">Nombre</th>
                                 <th width="25%">Email</th>
-                                <th width="15%">Mobile</th>
-                                <th width="15%">Role</th>
+                                <th width="15%">Celular</th>
+                                <th width="15%">Rol</th>
                                 <th width="15%">Status</th>
-                                <th width="10%">Action</th>
+                                <th width="10%">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -76,7 +76,8 @@
                                             class="btn btn-primary m-2">
                                             <i class="fa fa-pen"></i>
                                         </a>
-                                        <a class="btn btn-danger m-2" href="#" data-toggle="modal" data-target="#deleteModal">
+                                        <a class="btn btn-danger m-2" href="#" data-toggle="modal"
+                                            data-target="#deleteModal">
                                             <i class="fas fa-trash"></i>
                                         </a>
                                     </td>
@@ -97,5 +98,5 @@
 @endsection
 
 @section('scripts')
-    
+
 @endsection

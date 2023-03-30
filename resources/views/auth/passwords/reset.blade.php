@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
 
         <div class="text-center m-5">
-            <h1 class="text-white">Tech-Admin - Laravel Admin Panel</h1>
+            <h1 class="text-white">Sistema Estudios de Lab.Geotecnico</h1>
         </div>
 
         <div class="col-xl-10 col-lg-12 col-md-9">
@@ -30,12 +30,12 @@
                                     @csrf
 
                                     <input type="hidden" name="token" value="{{ $token }}">
-                                    
+
                                     <div class="form-group">
                                         <input id="email" type="email"
                                             class="form-control form-control-user @error('email') is-invalid @enderror"
                                             name="email" value="{{ $email ?? old('email') }}" required
-                                            autocomplete="email" autofocus placeholder="Enter Email Address.">
+                                            autocomplete="email" autofocus placeholder="Ingresa Correo Electronico.">
 
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
@@ -47,7 +47,8 @@
                                     <div class="form-group">
                                         <input id="password" type="password"
                                             class="form-control form-control-user @error('password') is-invalid @enderror"
-                                            name="password" required autocomplete="new-password" placeholder="New Password">
+                                            name="password" required autocomplete="new-password"
+                                            placeholder="Contraseña Nueva">
 
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
@@ -59,7 +60,7 @@
                                     <div class="form-group">
                                         <input id="password-confirm" type="password" class="form-control form-control-user"
                                             name="password_confirmation" required autocomplete="new-password"
-                                            placeholder="Confirm Password">
+                                            placeholder="Confirmar Contraseña">
                                     </div>
 
                                     <button class="btn btn-primary btn-user btn-block" type="submit">
@@ -74,9 +75,7 @@
 
         </div>
 
-        <div class="text-center mt-5">
-            <h6 class="text-white">Developed By : <a class="text-white" href="https://Geonic.com">Geonic</a></h6>
-        </div>
+
 
     </div>
 @endsection
