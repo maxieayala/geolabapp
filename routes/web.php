@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Muestras\MuestrasController;
+use App\Http\Controllers\Proyectos\ProyectosController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +17,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//Muestras
+Route::get('/muestras', [MuestrasController::class, 'index'])->name('muestras');
+Route::get('/album', [MuestrasController::class, 'index'])->name('albumfotografico');
 
+//proyectos
+Route::get('/proyecto', [ProyectosController::class, 'index'])->name('proyectos');
+Route::get('/proyectoAdd', [ProyectosController::class, 'create'])->name('proyectosAgregar');
+Route::get('/proyecto/exportar', [ProyectosController::class, 'create'])->name('proyectosExportar');
 Route::get('/', function () {
     return redirect()->route('login');
 });
