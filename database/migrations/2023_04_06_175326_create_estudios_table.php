@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('estudio', function (Blueprint $table) {
-            $table->id();
+        Schema::create('estudios', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->string('descripcion');
             $table->integer('tipo_id');
             $table->unsignedBigInteger('proyecto_id');

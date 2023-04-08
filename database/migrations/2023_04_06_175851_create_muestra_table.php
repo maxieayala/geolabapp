@@ -14,7 +14,17 @@ return new class extends Migration
     public function up()
     {
         Schema::create('muestra', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->string('estacion', 8)->nullable();
+            $table->string('latitude', 15)->nullable();
+            $table->string('longitude', 15)->nullable();
+            $table->string('banda', 5)->nullable();
+            $table->integer('sondeo')->nullable();
+            $table->decimal('desde')->nullable();
+            $table->decimal('hasta')->nullable();
+            $table->string('descripcionvisual')->nullable();
+            $table->unsignedBigInteger('estudio_id');
+            $table->foreign('estudio_id')->references('id')->on('estudios');
             $table->timestamps();
         });
     }
