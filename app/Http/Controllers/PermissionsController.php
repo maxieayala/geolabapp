@@ -64,7 +64,7 @@ class PermissionsController extends Controller
             Permission::create($request->all());
 
             DB::commit();
-            return redirect()->route('permissions.index')->with('success','Permissions created successfully.');
+            return redirect()->route('permissions.index')->with('success','Permisos creado con exito.');
         } catch (\Throwable $th) {
             DB::rollback();
             return redirect()->route('permissions.add')->with('error',$th->getMessage());
@@ -120,7 +120,7 @@ class PermissionsController extends Controller
             
             
             DB::commit();
-            return redirect()->route('permissions.index')->with('success','Permissions updated successfully.');
+            return redirect()->route('permissions.index')->with('success','Se  actualizo de manera exitosa.');
         } catch (\Throwable $th) {
             DB::rollback();
             return redirect()->route('permissions.edit',['permission' => $permission])->with('error',$th->getMessage());
@@ -141,7 +141,7 @@ class PermissionsController extends Controller
             Permission::whereId($id)->delete();
             
             DB::commit();
-            return redirect()->route('permissions.index')->with('success','Permissions deleted successfully.');
+            return redirect()->route('permissions.index')->with('success','El registro fué borrado');
         } catch (\Throwable $th) {
             DB::rollback();
             return redirect()->route('permissions.index')->with('error',$th->getMessage());
