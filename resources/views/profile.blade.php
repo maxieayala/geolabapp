@@ -7,7 +7,7 @@
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4 border-bottom">
-            <h1 class="h3 mb-0 text-gray-800">Profile</h1>
+            <h1 class="h3 mb-0 text-gray-800">Perfil</h1>
         </div>
 
         {{-- Alert Messages --}}
@@ -36,7 +36,7 @@
                         @csrf
                         <div class="row mt-2">
                             <div class="col-md-4">
-                                <label class="labels">First Name</label>
+                                <label class="labels">Primer Nombre</label>
                                 <input type="text" class="form-control @error('first_name') is-invalid @enderror"
                                     name="first_name" placeholder="Primer Nombre"
                                     value="{{ old('first_name') ? old('first_name') : auth()->user()->first_name }}">
@@ -46,7 +46,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-4">
-                                <label class="labels">Last Name</label>
+                                <label class="labels">Apellido</label>
                                 <input type="text" name="last_name"
                                     class="form-control @error('last_name') is-invalid @enderror"
                                     value="{{ old('last_name') ? old('last_name') : auth()->user()->last_name }}"
@@ -57,7 +57,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-4">
-                                <label class="labels">Mobile Number</label>
+                                <label class="labels">Celular</label>
                                 <input type="text" class="form-control @error('mobile_number') is-invalid @enderror"
                                     name="mobile_number"
                                     value="{{ old('mobile_number') ? old('mobile_number') : auth()->user()->mobile_number }}"

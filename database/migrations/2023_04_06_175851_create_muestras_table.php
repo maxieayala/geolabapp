@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('muestra', function (Blueprint $table) {
+        Schema::create('muestras', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('estacion', 8)->nullable();
-            $table->string('latitude', 15)->nullable();
-            $table->string('longitude', 15)->nullable();
+            $table->string('latitud', 15)->nullable();
+            $table->string('longitud', 15)->nullable();
             $table->string('banda', 5)->nullable();
             $table->integer('sondeo')->nullable();
             $table->decimal('desde')->nullable();

@@ -14,16 +14,16 @@
         Laboratorio
     </div>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#taTpDropDown"
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#taTpDropDownMuestras"
             aria-expanded="true" aria-controls="taTpDropDown">
             <i class="fas fa-user-alt"></i>
             <span>Muestras de Laboratorio</span>
         </a>
-        <div id="taTpDropDown" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="taTpDropDownMuestras" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Muestras</h6>
-                <a class="collapse-item" href="{{ route('users.index') }}">Muestras</a>
-                <a class="collapse-item" href="{{ route('users.create') }}">Imagenes de campo</a>
+                <a class="collapse-item" href="{{ route('muestras') }}">Muestras</a>
+                <a class="collapse-item" href="{{ route('albumfotografico') }}">Imagenes de campo</a>
 
             </div>
         </div>
@@ -34,16 +34,16 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#taTpDropDown"
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#taTpDropDownProyectos"
             aria-expanded="true" aria-controls="taTpDropDown">
             <i class="fas fa-user-alt"></i>
             <span>Proyectos</span>
         </a>
-        <div id="taTpDropDown" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="taTpDropDownProyectos" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Administracion</h6>
-                <a class="collapse-item" href="{{ route('users.index') }}">Proyectos</a>
-                <a class="collapse-item" href="{{ route('users.create') }}">Clientes</a>
+                <a class="collapse-item" href="{{ route('proyectos') }}">Proyectos</a>
+                <a class="collapse-item" href="{{ route('clientes') }}">Clientes</a>
 
             </div>
         </div>
@@ -56,7 +56,7 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Management
+    Sistema
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
@@ -64,14 +64,14 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#taTpDropDown"
             aria-expanded="true" aria-controls="taTpDropDown">
             <i class="fas fa-user-alt"></i>
-            <span>User Management</span>
+            <span>Administracion de Usuario</span>
         </a>
         <div id="taTpDropDown" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">User Management:</h6>
-                <a class="collapse-item" href="{{ route('users.index') }}">List</a>
-                <a class="collapse-item" href="{{ route('users.create') }}">Add New</a>
-                <a class="collapse-item" href="{{ route('users.import') }}">Import Data</a>
+                <h6 class="collapse-header">Administracion de Usuarios:</h6>
+                <a class="collapse-item" href="{{ route('users.index') }}">Lista</a>
+                <a class="collapse-item" href="{{ route('users.create') }}">Agregar nuevo</a>
+                <a class="collapse-item" href="{{ route('users.import') }}">Importar</a>
             </div>
         </div>
     </li>
@@ -94,9 +94,9 @@
             </a>
             <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Role & Permissions</h6>
+                    <h6 class="collapse-header">Roles & Permisos</h6>
                     <a class="collapse-item" href="{{ route('roles.index') }}">Roles</a>
-                    <a class="collapse-item" href="{{ route('permissions.index') }}">Permissions</a>
+                    <a class="collapse-item" href="{{ route('permissions.index') }}">Permisos</a>
                 </div>
             </div>
         </li>
@@ -108,7 +108,7 @@
     <li class="nav-item">
         <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
             <i class="fas fa-sign-out-alt"></i>
-            <span>Logout</span>
+            <span>Salir</span>
         </a>
     </li>
     <!-- Sidebar Toggler (Sidebar) -->

@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Muestras\MuestrasController;
 use App\Http\Controllers\Proyectos\ProyectosController;
+use App\Http\Controllers\Proyectos\ClientesController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -24,7 +25,15 @@ Route::get('/album', [MuestrasController::class, 'index'])->name('albumfotografi
 //proyectos
 Route::get('/proyecto', [ProyectosController::class, 'index'])->name('proyectos');
 Route::get('/proyectoAdd', [ProyectosController::class, 'create'])->name('proyectosAgregar');
-Route::get('/proyecto/exportar', [ProyectosController::class, 'create'])->name('proyectosExportar');
+Route::get('/proyecto/exportar', [ProyectosController::class, 'export'])->name('proyectosExportar');
+Route::get('/clientes', [ClientesController::class, 'index'])->name('clientes');
+
+Route::get('/clientes/add', [ClientesController::class, 'create'])->name('clientes_Add');
+Route::post('/clientes/guardar', [ClientesController::class, 'store'])->name('cliente_guardar');
+Route::get('/clientes/exportar', [ClientesController::class, 'export'])->name('clientes_Exportar');
+
+
+
 Route::get('/', function () {
     return redirect()->route('login');
 });

@@ -16,7 +16,10 @@ return new class extends Migration
         Schema::create('proyectos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre');
-            $table->longText('Descripcion')->nullable();
+            $table->string('direccion')->nullable();
+            $table->longText('ubicacion')->nullable();
+            $table->date('fecha_inicio');
+            $table->date('fecha_fin');
             $table->string('nombre_contacto');
             $table->bigInteger('telefono_contacto');
             $table->enum('status', ['Activo', 'Pendiente', 'Realizado']);
