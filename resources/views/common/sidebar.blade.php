@@ -99,6 +99,12 @@
                     <a class="collapse-item" href="{{ route('permissions.index') }}">Permisos</a>
                 </div>
             </div>
+            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Opciones de sistema</h6>
+                    <a class="collapse-item" href="{{ route('catalogo.index') }}">Catalogo</a>  
+                </div>
+            </div>
         </li>
 
         <!-- Divider -->
