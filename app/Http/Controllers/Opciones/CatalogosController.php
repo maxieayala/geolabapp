@@ -18,14 +18,13 @@ class CatalogosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        $Catalogos = Catalogo::where('id_padre', '=', 0)->get();
-
-        $allCatalogos = Catalogo::pluck('nombre', 'id')->all();
-
-        return view('Opciones.catalogo.index', compact('Catalogos', 'allCatalogos'));
+        $Catalogos = Catalogo::whereNull('id_padre')->get();
+        return view('Opciones.catalogo.index', compact('Catalogos'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -34,7 +33,6 @@ class CatalogosController extends Controller
      */
     public function create()
     {
-      
     }
 
     /**
@@ -45,21 +43,14 @@ class CatalogosController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $validatedData = $this->validate($request, [
+            'nombre'      => 'required|min:3|max:255|string',
+            'id_padre' => 'sometimes|nullable|numeric'
+      ]);
 
-            'nombre' => 'required',
+      Catalogo::create($validatedData);
 
-        ]);
-
-        $input = $request->all();
-
-        $input['id_padre'] = empty($input['id_padre']) ? 0 : $input['id_padre'];
-
-
-
-        Catalogo::create($input);
-
-        return back()->with('success', 'New Catalogo added successfully.');
+      return redirect()->route('catalogo.index')->withSuccess('You have successfully created a Catalogo!');
     }
 
     /**
@@ -91,9 +82,21 @@ class CatalogosController extends Controller
      * @param  \App\Models\opciones\Catalogo  $catalogo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Catalogo $catalogo)
+    public function update(Request $request, $id)
     {
-        //
+
+        $validatedData = $request->validate([
+            'nombre' => 'required|max:255',
+  
+        ]);
+
+        $item = Catalogo::findOrFail($id); // Buscar el elemento por ID
+        $item->nombre = $validatedData['nombre'];
+  
+        $item->save(); // Guardar los cambios en la base de datos
+
+        // Redirigir al usuario a la misma vista
+        return redirect()->route('catalogo.index', $item->id_padre);
     }
 
     /**
@@ -104,6 +107,22 @@ class CatalogosController extends Controller
      */
     public function destroy(Catalogo $catalogo)
     {
-        //
+        if ($catalogo->children) {
+            foreach ($catalogo->children()->with('posts')->get() as $child) {
+                foreach ($child->posts as $post) {
+                    $post->update(['catalogo_id' => NULL]);
+                }
+            }
+            
+            $catalogo->children()->delete();
+        }
+
+        foreach ($catalogo->posts as $post) {
+            $post->update(['catalogo_id' => NULL]);
+        }
+
+        $catalogo->delete();
+
+        return redirect()->route('catalogo.index')->withSuccess('You have successfully deleted a catalogo!');
     }
 }

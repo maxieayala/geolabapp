@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Muestras\MuestrasController;
 use App\Http\Controllers\Proyectos\ProyectosController;
 use App\Http\Controllers\Proyectos\ClientesController;
+use App\Http\Controllers\Opciones\CatalogosController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//catalalogo
+Route::get('/catalogo', [CatalogosController::class, 'index'])->name('catalogo.index');
+Route::post('/catalogoAdd', [CatalogosController::class, 'store'])->name('catalogo.store');
+Route::put('/catalogoupdate', [CatalogosController::class, 'update'])->name('catalogo.update');
+
+Route::delete('/catalogo/delete', [CatalogosController::class, 'destroy'])->name('catalogo.destroy');
+
+
 //Muestras
 Route::get('/muestras', [MuestrasController::class, 'index'])->name('muestras');
 Route::get('/album', [MuestrasController::class, 'index'])->name('albumfotografico');
