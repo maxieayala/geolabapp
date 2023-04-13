@@ -52,7 +52,7 @@
 
                         {{-- Mobile Number --}}
                         <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
-                            <span style="color:red;">*</span>Mobile Number</label>
+                            <span style="color:red;">*</span>Numero telefonico</label>
                             <input type="text"
                                 class="form-control form-control-user @error('mobile_number') is-invalid @enderror"
                                 id="exampleMobile" placeholder="Numero de Telefono" name="mobile_number"
@@ -83,7 +83,7 @@
                             <span style="color:red;">*</span>Status</label>
                             <select class="form-control form-control-user @error('status') is-invalid @enderror"
                                 name="status">
-                                <option selected disabled>Select Status</option>
+                                <option selected disabled>Seleccionar estado</option>
                                 <option value="1" selected>Active</option>
                                 <option value="0">Inactive</option>
                             </select>

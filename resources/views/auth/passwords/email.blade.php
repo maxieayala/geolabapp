@@ -18,7 +18,7 @@
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Reset Password!</h1>
+                                    <h1 class="h4 text-gray-900 mb-4">Reestablecer contraseña</h1>
                                 </div>
 
                                 @if (session('error'))
@@ -41,12 +41,12 @@
                                     </div>
 
                                     <button class="btn btn-primary btn-user btn-block">
-                                        {{ __('Send Password Reset Link') }}
+                                        {{ __('Enviar enlace para reestablecer contraseña') }}
                                     </button>
                                 </form>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" href="{{ route('login') }}">Already know your passwrd? Login Here</a>
+                                    <a class="small" href="{{ route('login') }}">¿Recuerdas tu contraseña? Inicia sesion aca</a>
                                 </div>
                             </div>
                         </div>
