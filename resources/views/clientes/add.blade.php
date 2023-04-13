@@ -30,7 +30,7 @@
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <span style="color:red;">*</span>Nombre</label>
                             <input type="text" class="form-control form-control-user @error('name') is-invalid @enderror"
-                                id="exampleName" placeholder="Nombre" name="name" value="{{ old('name') }}">
+                                id="exampleName" placeholder="Nombre" name="nombre" value="{{ old('nombre') }}">
 
                             @error('name')
                                 <span class="text-danger">{{ $message }}</span>
@@ -63,17 +63,17 @@
                             @enderror
                         </div>
 
-                        {{-- Role --}}
+                        {{-- tipo --}}
                         <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
-                            <span style="color:red;">*</span>Clientes</label>
+                            <span style="color:red;">*</span>Tipo</label>
                             <select class="form-control form-control-user @error('cliente_id') is-invalid @enderror"
                                 name="cliente_id">
                                 <option selected disabled>Seleccionar</option>
-                                @foreach ($roles as $role)
-                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                @foreach ($tipo_clientes as $tipo)
+                                    <option value="{{ $tipo->id }}">{{ $tipo->nombre }}</option>
                                 @endforeach
                             </select>
-                            @error('role_id')
+                            @error('tipo_id')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
