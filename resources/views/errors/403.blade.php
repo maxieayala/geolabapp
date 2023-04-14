@@ -9,9 +9,9 @@
         <!-- 404 Error Text -->
         <div class="text-center">
             <div class="error mx-auto" data-text="403">403</div>
-            <p class="lead text-gray-800 mb-5">Permission Denied!</p>
-            <p class="text-gray-500 mb-0">It looks like you don't Have Permission to access</p>
-            <a href="{{ route('home') }}">← Back to Dashboard</a>
+            <p class="lead text-gray-800 mb-5">Permiso negado</p>
+            <p class="text-gray-500 mb-0">El usuario no cuenta con permisos de acceso</p>
+            <a href="{{ route('home') }}">← Regresar</a>
         </div>
 
     </div>
@@ -63,7 +63,7 @@
                     <div class="col-lg-8 col-12 col-sm-10 offset-lg-2 offset-sm-1">
                         <h1 class="m-0">403</h1>
                         <h6>Permission Denied!</h6>
-                        <p>Looks Like You Don't have permission!</p>
+                        <p>El usuario no cuenta con los permisos necesarios</p>
                     </div>
                 </div>
             </div>
