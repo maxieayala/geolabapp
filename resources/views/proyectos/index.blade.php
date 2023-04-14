@@ -30,11 +30,11 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Proyectos</h6>
-            <form method="GET" action="{{ route('DetalleLote.index') }}"
+            <form method="GET" action="{{ route('proyectos') }}"
             class="d-sm-inline-block form-inline navbar-search w-50">
             <div class="py-2 flex">
                 <div class="input-group mb-3">
-                    <input type="hidden" id="lote" name="idcliente" value="{{$cliente_id}}">
+                    <input type="hidden" id="lote" name="cliente_id" value="{{$cliente_id}}">
                     <input type="search" name="search" id="search" value="{{ request()->input('search') }}"
                         class="form-control small" placeholder="Buscar por Cedula, Numero de Prestamo"
                         aria-label="Search" aria-describedby="basic-addon2">

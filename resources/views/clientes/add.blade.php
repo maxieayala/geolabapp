@@ -24,7 +24,8 @@
             <div class="card-body">
                 <form method="POST" action="{{ route('cliente_guardar') }}">
                     @csrf
-                    <div class="form-group row">
+                    <div class="card-body">
+                        <div class="form-group row">
 
                         {{-- Name --}}
                         <div class="col-sm-6 mb-3 mb-sm-0">
@@ -36,7 +37,7 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="row mb-3">
+
 
                         {{-- Email --}}
                         <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
@@ -52,13 +53,13 @@
 
                         {{-- Mobile Number --}}
                         <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
-                            <span style="color:red;">*</span>Numero telefonico</label>
+                            <span style="color:red;">*</span>Telefono</label>
                             <input type="text"
-                                class="form-control form-control-user @error('mobile_number') is-invalid @enderror"
-                                id="exampleMobile" placeholder="Numero de Telefono" name="mobile_number"
-                                value="{{ old('mobile_number') }}">
+                                class="form-control form-control-user @error('telefono') is-invalid @enderror"
+                                id="exampleMobile" placeholder="Numero de Telefono" name="telefono"
+                                value="{{ old('telefono') }}">
 
-                            @error('mobile_number')
+                            @error('telefono')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
@@ -91,10 +92,16 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <span style="color:red;">*</span>direccion</label>
+                            <input type="text" class="form-control form-control-user @error('name') is-invalid @enderror"
+                                id="exampleName" placeholder="direccion" name="direccion" value="{{ old('direccion') }}">
 
-                        $table->bigInteger('telefono');
-                        $table->string('direccion');  
-
+                            @error('direccion')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                   
 
 
                     </div>
@@ -103,9 +110,9 @@
                         <button type="submit" class="btn btn-success btn-user float-right mb-3">Save</button>
                         <a class="btn btn-primary float-right mr-3 mb-3" href="{{ route('clientes') }}">Cancel</a>
                     </div>
-
+                </div>
                 </form>
-            </div>
+        
         </div>
 
     </div>
