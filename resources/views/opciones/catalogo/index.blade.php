@@ -48,9 +48,7 @@
 
         <div class="card-body">
             <div id="treeview">
-
-              
-
+           
 
 
                     <div class="row">
@@ -132,7 +130,7 @@
 
                                         <div class="form-group">
                                             <select class="form-control" name="id_padre">
-                                                <option value="">Select padre catalogo</option>
+                                                <option value="">Seleccionar tipo de catalogo</option>
 
                                                 @foreach ($Catalogos as $catalogo)
                                                 <option value="{{ $catalogo->id }}">{{ $catalogo->nombre }}</option>
@@ -169,6 +167,7 @@
         <script>
             // Agregamos un evento "click" a los botones de editar
      $('.btn-edit').click(function() {
+        
         // Obtenemos el ID del elemento a editar
         var catalogoId = $(this).data('id');
 

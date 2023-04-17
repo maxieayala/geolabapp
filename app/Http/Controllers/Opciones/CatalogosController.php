@@ -50,7 +50,7 @@ class CatalogosController extends Controller
 
       Catalogo::create($validatedData);
 
-      return redirect()->route('catalogo.index')->withSuccess('You have successfully created a Catalogo!');
+      return redirect()->route('catalogo.index')->withSuccess('El catalogo se creo exitosamente');
     }
 
     /**
@@ -59,9 +59,9 @@ class CatalogosController extends Controller
      * @param  \App\Models\opciones\Catalogo  $catalogo
      * @return \Illuminate\Http\Response
      */
-    public function show(Catalogo $catalogo)
+    public function show(Catalogo $catalogo)   //muestra los catalogos en la tabla
     {
-        //
+        
     }
 
     /**
