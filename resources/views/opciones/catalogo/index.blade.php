@@ -10,7 +10,7 @@
                 <div class="modal-header">
                     <h5 class="modal-title">Editar Catalogo</h5>
 
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -48,13 +48,35 @@
 
         <div class="card-body">
             <div id="treeview">
-
-              
-
+           
 
 
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-8"> <!-- aca inicia el frame izquierdo Mostrar -->
+
+                        <h6 class="m-0 font-weight-bold text-primary">Catalogos</h6> <!-- aca inicia tabla hover over -->
+
+                            <table class="table table-hover"> <!--los headers-->
+                                <thead>
+                                    <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">ID_Padre</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Descripcion</th>
+                                    <th scope="col">Fecha fin</th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody>
+                                @foreach ($Catalogos as $catalogo) <!-- aca imprime la data -->
+                                    <tr>
+                                        <td>{{$row['id']}}</td>
+                                        <td>{{$row['id_padre']}}</td>
+                                        <td>{{$row['nombre']}}</td>
+                                        <td>{{$row['descripcion']}}</td>
+                                @endforeach
+                                </tbody>
+                            </table> <!-- aca termina HO -->
 
                             <div class="card">
                                 <div class="card-header">
@@ -120,7 +142,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-4"> <!-- aca el frame derecho Crear -->
                             <div class="card">
                                 <div class="card-header">
                                     <h6 class="m-0 font-weight-bold text-primary">Crear Catalogo</h6>
@@ -132,7 +154,7 @@
 
                                         <div class="form-group">
                                             <select class="form-control" name="id_padre">
-                                                <option value="">Select padre catalogo</option>
+                                                <option value="null">Seleccionar tipo de catalogo</option>
 
                                                 @foreach ($Catalogos as $catalogo)
                                                 <option value="{{ $catalogo->id }}">{{ $catalogo->nombre }}</option>
@@ -169,6 +191,7 @@
         <script>
             // Agregamos un evento "click" a los botones de editar
      $('.btn-edit').click(function() {
+        
         // Obtenemos el ID del elemento a editar
         var catalogoId = $(this).data('id');
 
