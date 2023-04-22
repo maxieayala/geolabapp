@@ -68,7 +68,7 @@
                         <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
                             <span style="color:red;">*</span>Tipo</label>
                             <select class="form-control form-control-user @error('cliente_id') is-invalid @enderror"
-                                name="cliente_id">
+                                name="cliente_id" id='cliente_id'>
                                 <option selected disabled>Seleccionar</option>
                                 @foreach ($tipo_clientes as $tipo)
                                     <option value="{{ $tipo->id }}">{{ $tipo->nombre }}</option>
@@ -78,7 +78,16 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+                        <div class="col-sm-6 mb-3 mb-sm-0 " style="display:none;">
+                            <span style="color:red;">*</span>RUC</label>
+                            <input type="text" class="form-control form-control-user @error('ruc') is-invalid @enderror"
+                                id="ruc" placeholder="ruc" name="ruc" value="{{ old('ruc') }}">
 
+                            @error('ruc')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                   
                         {{-- Status --}}
                         <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
                             <span style="color:red;">*</span>Status</label>
@@ -118,4 +127,18 @@
     </div>
 
 
+@endsection
+
+@section('scripts')
+<script>
+    var select = document.getElementById("my-cliente_id");
+    select.onchange = function() {
+      var div = document.getElementById("ruc");
+      if (select.value == "2") {
+        div.style.display = "block";
+      } else {
+        div.style.display = "none";
+      }
+    }
+  </script>
 @endsection

@@ -33,8 +33,9 @@ class ClientesController extends Controller
     public function create()
     {
         //aca hacer un select especifico
-        $tipo_clientes = catalogo::all();
-       
+
+        $tipo_clientes = catalogo::where('id_padre', '=', '1')->get();
+
         return view('clientes.add', ['tipo_clientes' => $tipo_clientes]);
 
     }
