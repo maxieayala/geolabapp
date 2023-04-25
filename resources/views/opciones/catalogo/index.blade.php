@@ -78,7 +78,7 @@
                                 </tbody>
                             </table> <!-- aca termina HO -->
 
-                            <div class="card">
+                            <!-- <div class="card">
                                 <div class="card-header">
                                     <h6 class="m-0 font-weight-bold text-primary">Catalogo</h6>
                                 </div>
@@ -139,7 +139,7 @@
                                         @endforeach
                                     </ul>
                                 </div>
-                            </div>
+                            </div> --> <!-- aca termina tabla izq (eliminada) -->
                         </div>
 
                         <div class="col-md-4"> <!-- aca el frame derecho Crear -->
