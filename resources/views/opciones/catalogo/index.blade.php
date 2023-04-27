@@ -63,17 +63,17 @@
                                     <th scope="col">ID_Padre</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Descripcion</th>
-                                    <th scope="col">Fecha fin</th>
+                                    <!--<th scope="col">Fecha fin</th>-->
                                     </tr>
                                 </thead>
                                 
                                 <tbody>
                                 @foreach ($Catalogos as $catalogo) <!-- aca imprime la data -->
                                     <tr>
-                                        <td>{{$row['id']}}</td>
-                                        <td>{{$row['id_padre']}}</td>
-                                        <td>{{$row['nombre']}}</td>
-                                        <td>{{$row['descripcion']}}</td>
+                                        <td>{{$catalogo['id']}}</td>
+                                        <td>{{$catalogo['id_padre']}}</td>
+                                        <td>{{$catalogo['nombre']}}</td>
+                                        <td>{{$catalogo['descripcion']}}</td>
                                 @endforeach
                                 </tbody>
                             </table> <!-- aca termina HO -->
@@ -154,7 +154,7 @@
 
                                         <div class="form-group">
                                             <select class="form-control" name="id_padre">
-                                                <option value="null">Seleccionar tipo de catalogo</option>
+                                                <option value="">Seleccionar tipo de catalogo</option>
 
                                                 @foreach ($Catalogos as $catalogo)
                                                 <option value="{{ $catalogo->id }}">{{ $catalogo->nombre }}</option>
