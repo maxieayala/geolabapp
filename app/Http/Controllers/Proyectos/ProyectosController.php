@@ -3,100 +3,76 @@
 namespace App\Http\Controllers\Proyectos;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use App\Models\Proyecto;
+use App\Models\Cliente;
 use Illuminate\Http\Request;
 
 class ProyectosController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+  public function __construct()
+  {
+    $this->middleware('auth');
+  }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $proyectos = Proyecto::with(['clientes' => function ($query) {
-            $query->orderBy('created_at', 'desc');
-        }])
-            ->orderBy('proyectos.id', 'desc')
-            ->paginate(5);
+  public function index()
+  {
+    $proyectos = Proyecto::with(['clientes' => function ($query) {
+      $query->orderBy('created_at', 'desc');
+    }])
+      ->orderBy('proyectos.id', 'desc')
+      ->paginate(5);
 
-        return view('proyectos.index', compact('proyectos'));
-    }
+    return view('proyectos.index', compact('proyectos'));
+  }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('proyectos.add');
-    }
+  public function create()
+  {
+    $todos_los_clientes = Cliente::all();
+    return view('proyectos.add', compact('todos_los_clientes'));
+  }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+  public function store(Request $request)
+  {
+    $proyecto = Proyecto::create([
+      'nombre' => $request->input('nombre'),
+      'direccion' => $request->input('direccion'),
+      'ubicacion' => $request->input('ubicacion'),
+      'fecha_inicio' => $request->input('fecha_inicio'),
+      'fecha_fin' => $request->input('fecha_fin'),
+      'nombre_contacto' => $request->input('nombre_contacto'),
+      'telefono_contacto' => $request->input('telefono_contacto'),
+      'status' => $request->input('status'),
+      'cliente_id' => $request->input('cliente_id'),
+    ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Proyecto  $proyecto
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Proyecto $proyecto)
-    {
-        //
-    }
+    return redirect()->route('proyectos');
+  }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Proyecto  $proyecto
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Proyecto $proyecto)
-    {
-        //
-    }
+  public function add()
+  {
+    $clientes = Cliente::all();
+    return view('proyectos.add', compact('clientes'));
+  }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Proyecto  $proyecto
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Proyecto $proyecto)
-    {
-        //
-    }
+  public function show(Proyecto $proyecto)
+  {
+  }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Proyecto  $proyecto
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Proyecto $proyecto)
-    {
-        //
-    }
-    public function export() 
-    {
-        // return Excel::download(new UsersExport, 'users.xlsx');
-    }
+  public function edit(Proyecto $proyecto)
+  {
+  }
 
+  public function update(Request $request, Proyecto $proyecto)
+  {
+  }
+
+  public function destroy(Proyecto $proyecto)
+  {
+  }
+
+  public function export()
+  {
+    // return Excel::download(new UsersExport, 'users.xlsx');
+  }
 }

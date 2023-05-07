@@ -4,119 +4,127 @@
 
 @section('content')
 
-    <div class="container-fluid">
+<div class="container-fluid">
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Agregar Proyecto</h1>
+    <a href="{{ route('proyectos') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+      <i class="fas fa-arrow-left fa-sm text-white-50"></i>
+      Regresar
+    </a>
+  </div>
 
-        <!-- Page Heading -->
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Add Users</h1>
-            <a href="{{ route('users.index') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                    class="fas fa-arrow-left fa-sm text-white-50"></i> Regresar</a>
-        </div>
+  {{-- Alert Messages --}}
+  @include('common.alert')
 
-        {{-- Alert Messages --}}
-        @include('common.alert')
-
-        <!-- DataTales Example -->
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Agregar Nuevo</h6>
-            </div>
-            <form method="POST" action="{{ route('users.store') }}">
-                @csrf
-                <div class="card-body">
-                    <div class="form-group row">
-
-                        {{-- First Name --}}
-                        <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
-                            <span style="color:red;">*</span>First Name</label>
-                            <input type="text"
-                                class="form-control form-control-user @error('first_name') is-invalid @enderror"
-                                id="exampleFirstName" placeholder="Primer Nombre" name="first_name"
-                                value="{{ old('first_name') }}">
-
-                            @error('first_name')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        {{-- Last Name --}}
-                        <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
-                            <span style="color:red;">*</span>Last Name</label>
-                            <input type="text"
-                                class="form-control form-control-user @error('last_name') is-invalid @enderror"
-                                id="exampleLastName" placeholder="Last Name" name="last_name"
-                                value="{{ old('last_name') }}">
-
-                            @error('last_name')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        {{-- Email --}}
-                        <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
-                            <span style="color:red;">*</span>Email</label>
-                            <input type="email"
-                                class="form-control form-control-user @error('email') is-invalid @enderror"
-                                id="exampleEmail" placeholder="Email" name="email" value="{{ old('email') }}">
-
-                            @error('email')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        {{-- Mobile Number --}}
-                        <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
-                            <span style="color:red;">*</span>Mobile Number</label>
-                            <input type="text"
-                                class="form-control form-control-user @error('mobile_number') is-invalid @enderror"
-                                id="exampleMobile" placeholder="Numero de Telefono" name="mobile_number"
-                                value="{{ old('mobile_number') }}">
-
-                            @error('mobile_number')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        {{-- Role --}}
-                        <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
-                            <span style="color:red;">*</span>Clientes</label>
-                            <select class="form-control form-control-user @error('cliente_id') is-invalid @enderror"
-                                name="cliente_id">
-                                <option selected disabled>Seleccionar</option>
-                                @foreach ($roles as $role)
-                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('role_id')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        {{-- Status --}}
-                        <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
-                            <span style="color:red;">*</span>Status</label>
-                            <select class="form-control form-control-user @error('status') is-invalid @enderror"
-                                name="status">
-                                <option selected disabled>Select Status</option>
-                                <option value="1" selected>Active</option>
-                                <option value="0">Inactive</option>
-                            </select>
-                            @error('status')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="card-footer">
-                    <button type="submit" class="btn btn-success btn-user float-right mb-3">Save</button>
-                    <a class="btn btn-primary float-right mr-3 mb-3" href="{{ route('users.index') }}">Cancel</a>
-                </div>
-            </form>
-        </div>
-
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Agregar Nuevo</h6>
     </div>
+    <form method="POST" action="{{ route('proyecto_guardar') }}">
+      @csrf
+      <div class="card-body">
+        <div class="form-group row">
 
+          {{-- Estado --}}
+          <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
+            <span style="color:red;">*</span>Status</label>
+            <select class="form-control form-control-proyecto @error('status') is-invalid @enderror" name="status" id="status" placeholder="Estado actual de proyecto" value="{{ old('status') }}">
+              <option value="1">Activo</option>
+              <option value="2">Pendiente</option>
+              <option value="2">Realizado</option>
+            </select>
+            @error('status')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+          </div>
+
+          {{-- Nombre --}}
+          <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
+            <span style="color:red;">*</span>Nombre</label>
+            <input type="text" class="form-control form-control-proyecto @error('nombre') is-invalid @enderror" placeholder="Nombre de proyecto" name="nombre" id="nombre" value="{{ old('nombre') }}">
+            @error('nombre')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+          </div>
+
+          {{-- cliente_id --}}
+          <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
+            <label for="cliente_id"><span style="color:red;">*</span>Clientes</label>
+            <select class="form-control form-control-proyecto @error('cliente_id') is-invalid @enderror" name="cliente_id" id="cliente_id">
+              <option value="">Seleccionar cliente</option>
+              @foreach ($todos_los_clientes as $cliente)
+              <option value="{{ $cliente->id }}">{{ $cliente->Nombre }}</option>
+              @endforeach
+            </select>
+            @error('cliente_id')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+          </div>
+
+          {{-- Direccion --}}
+          <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
+            <span style="color:red;">*</span>Direccion</label>
+            <input type="text" class="form-control form-control-proyecto @error('direccion') is-invalid @enderror" placeholder="Direccion" name="direccion" value="{{ old('direccion') }}">
+
+            @error('direccion')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+          </div>
+
+          {{-- Ubicación --}}
+          <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
+            <span style="color:red;">*</span>Ubicación</label>
+            <input type="text" class="form-control form-control-proyecto @error('ubicacion') is-invalid @enderror" placeholder="Agregar una ubicacion" name="ubicacion" id="ubicacion" value="{{ old('ubicacion') }}">
+            @error('ubicacion')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+          </div>
+
+          {{-- Fecha_inicio --}}
+          <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
+            <span style="color:red;">*</span>Fecha_inicio</label>
+            <input type="date" class="form-control form-control-proyecto @error('Fecha_inicio') is-invalid @enderror" placeholder="Ingresar fecha inicio" name="fecha_inicio" id="fecha_inicio" value="{{ old('fecha_inicio') }}">
+            @error('Fecha_inicio')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+          </div>
+
+          {{-- Fecha_fin --}}
+          <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
+            <span style="color:red;">*</span>Fecha_fin</label>
+            <input type="date" class="form-control form-control-proyecto @error('Fecha_fin') is-invalid @enderror" placeholder="Ingresar fecha final" name="fecha_fin" id="fecha_fin" value="{{ old('fecha_fin') }}">
+            @error('Fecha_fin')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+          </div>
+
+          {{-- Nombre_contacto --}}
+          <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
+            <span style="color:red;">*</span>Nombre Contacto</label>
+            <input type="text" class="form-control form-control-proyecto @error('nombre_contacto') is-invalid @enderror" placeholder="Nombre de Contacto" name="nombre_contacto" id="nombre_contacto" value="{{ old('nombre_contacto') }}">
+            @error('nombre_contacto')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+          </div>
+
+          {{-- Telefono_contacto --}}
+          <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
+            <span style="color:red;">*</span>Telefono Contacto</label>
+            <input type="text" class="form-control form-control-proyecto @error('telefono_contacto') is-invalid @enderror" placeholder="Numero de Telefono" name="telefono_contacto" id="telefono_contacto" value="{{ old('telefono_contacto') }}">
+            @error('telefono_contacto')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+          </div>
+
+        </div>
+      </div>
+      <div class="card-footer">
+        <button type="submit" class="btn btn-success btn-proyecto float-right mb-3">Save</button>
+        <a class="btn btn-primary float-right mr-3 mb-3" href="{{ route('proyectos') }}">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
 
 @endsection
