@@ -31,12 +31,14 @@ Route::delete('/catalogo/delete', [CatalogosController::class, 'destroy'])->name
 Route::get('/muestras', [MuestrasController::class, 'index'])->name('muestras');
 Route::get('/album', [MuestrasController::class, 'index'])->name('albumfotografico');
 
-//proyectos
+//Proyectos
+Route::post('/proyectos/guardar', [ProyectosController::class, 'store'])->name('proyecto_guardar');
 Route::get('/proyecto', [ProyectosController::class, 'index'])->name('proyectos');
 Route::get('/proyectoAdd', [ProyectosController::class, 'create'])->name('proyectosAgregar');
 Route::get('/proyecto/exportar', [ProyectosController::class, 'export'])->name('proyectosExportar');
-Route::get('/clientes', [ClientesController::class, 'index'])->name('clientes');
 
+//Clientes
+Route::get('/clientes', [ClientesController::class, 'index'])->name('clientes');
 Route::get('/clientes/add', [ClientesController::class, 'create'])->name('clientes_Add');
 Route::post('/clientes/guardar', [ClientesController::class, 'store'])->name('cliente_guardar');
 Route::get('/clientes/exportar', [ClientesController::class, 'export'])->name('clientes_Exportar');
@@ -52,7 +54,7 @@ Auth::routes(['register' => false]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Profile Routes
-Route::prefix('profile')->name('profile.')->middleware('auth')->group(function(){
+Route::prefix('profile')->name('profile.')->middleware('auth')->group(function () {
     Route::get('/', [HomeController::class, 'getProfile'])->name('detail');
     Route::post('/update', [HomeController::class, 'updateProfile'])->name('update');
     Route::post('/change-password', [HomeController::class, 'changePassword'])->name('change-password');
@@ -65,7 +67,7 @@ Route::resource('roles', App\Http\Controllers\RolesController::class);
 Route::resource('permissions', App\Http\Controllers\PermissionsController::class);
 
 // Users 
-Route::middleware('auth')->prefix('users')->name('users.')->group(function(){
+Route::middleware('auth')->prefix('users')->name('users.')->group(function () {
     Route::get('/', [UserController::class, 'index'])->name('index');
     Route::get('/create', [UserController::class, 'create'])->name('create');
     Route::post('/store', [UserController::class, 'store'])->name('store');
@@ -74,11 +76,9 @@ Route::middleware('auth')->prefix('users')->name('users.')->group(function(){
     Route::delete('/delete/{user}', [UserController::class, 'delete'])->name('destroy');
     Route::get('/update/status/{user_id}/{status}', [UserController::class, 'updateStatus'])->name('status');
 
-    
+
     Route::get('/import-users', [UserController::class, 'importUsers'])->name('import');
     Route::post('/upload-users', [UserController::class, 'uploadUsers'])->name('upload');
 
     Route::get('export/', [UserController::class, 'export'])->name('export');
-
 });
-
