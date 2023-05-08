@@ -29,7 +29,7 @@
 
                         {{-- Name --}}
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <span style="color:red;">*</span>Name</label>
+                            <span style="color:red;">*</span>Nombre</label>
                             <input type="text" class="form-control form-control-user @error('name') is-invalid @enderror"
                                 id="exampleName" placeholder="Nombre" name="name"
                                 value="{{ old('name') ? old('name') : $role->name }}">
@@ -59,7 +59,7 @@
                         </div>
 
                         <div class="col-sm-12 mb-3 mt-3 mb-sm-0">
-                            <label> <span style="color:red;">*</span> Permissions</label>
+                            <label> <span style="color:red;">*</span> Permisos</label>
                             <input type="checkbox" name="check-all" class="form-contol" id="checkAllPermissions"
                                 {{ count($permissions) == count($role->permissions->pluck('id')->toArray()) ? 'checked' : '' }} />
                             All

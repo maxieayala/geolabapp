@@ -8,7 +8,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Import Users</h1>
+        <h1 class="h3 mb-0 text-gray-800">Importar Usuarios</h1>
         <a href="{{route('users.index')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                 class="fas fa-arrow-left fa-sm text-white-50"></i> Regresar</a>
     </div>
@@ -27,11 +27,11 @@
                 <div class="form-group row">
                     
                     <div class="col-md-12 mb-3 mt-3">
-                        <p>Please Upload CSV in Given Format <a href="{{ asset('files/sample-data-sheet.csv') }}" target="_blank">Sample CSV Format</a></p>
+                        <p>Favor subir archivo CSV en el formato requerido:<a href="{{ asset('files/sample-data-sheet.csv') }}" target="_blank">      Ejemplo de formato CSV</a></p>
                     </div>
                     {{-- File Input --}}
                     <div class="col-sm-12 mb-3 mt-3 mb-sm-0">
-                        <span style="color:red;">*</span>File Input(Datasheet)</label>
+                        <span style="color:red;">*</span>Subir archivo(Hoja de datos)</label>
                         <input 
                             type="file" 
                             class="form-control form-control-user @error('file') is-invalid @enderror" 
@@ -48,8 +48,8 @@
             </div>
 
             <div class="card-footer">
-                <button type="submit" class="btn btn-success btn-user float-right mb-3">Upload Users</button>
-                <a class="btn btn-primary float-right mr-3 mb-3" href="{{ route('users.index') }}">Cancel</a>
+                <button type="submit" class="btn btn-success btn-user float-right mb-3">Subir archivo</button>
+                <a class="btn btn-primary float-right mr-3 mb-3" href="{{ route('users.index') }}">Cancelar</a>
             </div>
         </form>
     </div>
