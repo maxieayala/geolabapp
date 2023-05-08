@@ -41,7 +41,7 @@
 
                         {{-- Email --}}
                         <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
-                            <span style="color:red;">*</span>Email</label>
+                            <span style="color:red;">*</span>Correo</label>
                             <input type="email"
                                 class="form-control form-control-user @error('email') is-invalid @enderror"
                                 id="email" placeholder="Email" name="email" value="{{ old('email') }}">
@@ -90,19 +90,19 @@
 
                         {{-- Status --}}
                         <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
-                            <span style="color:red;">*</span>Status</label>
+                            <span style="color:red;">*</span>Estado</label>
                             <select class="form-control form-control-user @error('status') is-invalid @enderror"
                                 name="status">
                                 <option selected disabled>Seleccionar estado</option>
-                                <option value="1" selected>Active</option>
-                                <option value="0">Inactive</option>
+                                <option value="1" selected>Activo</option>
+                                <option value="0">Inactivo</option>
                             </select>
                             @error('status')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <span style="color:red;">*</span>direccion</label>
+                            <span style="color:red;">*</span>Direccion</label>
                             <input type="text" class="form-control form-control-user @error('name') is-invalid @enderror"
                                 id="exampleName" placeholder="direccion" name="direccion" value="{{ old('direccion') }}">
 
@@ -116,8 +116,8 @@
                     </div>
 
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-success btn-user float-right mb-3">Save</button>
-                        <a class="btn btn-primary float-right mr-3 mb-3" href="{{ route('clientes') }}">Cancel</a>
+                        <button type="submit" class="btn btn-success btn-user float-right mb-3">Guardar</button>
+                        <a class="btn btn-primary float-right mr-3 mb-3" href="{{ route('clientes') }}">Cancelar</a>
                     </div>
                 </div>
                 </form>

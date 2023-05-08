@@ -73,7 +73,7 @@
 						</tr>
 						@empty
 						<tr>
-							<span style="color:red;">*</span>SIN REGISTROS
+							<span style="color:red;">*</span>No se encontraro registros
 						</tr>
 						@endforelse
 

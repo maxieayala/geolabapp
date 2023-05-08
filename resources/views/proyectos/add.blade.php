@@ -28,7 +28,7 @@
 
           {{-- Estado --}}
           <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
-            <span style="color:red;">*</span>Status</label>
+            <span style="color:red;">*</span>Estado</label>
             <select class="form-control form-control-proyecto @error('status') is-invalid @enderror" name="status" id="status" placeholder="Estado actual de proyecto" value="{{ old('status') }}">
               <option value="1">Activo</option>
               <option value="2">Pendiente</option>
@@ -83,7 +83,7 @@
 
           {{-- Fecha_inicio --}}
           <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
-            <span style="color:red;">*</span>Fecha_inicio</label>
+            <span style="color:red;">*</span>Fecha de inicio</label>
             <input type="date" class="form-control form-control-proyecto @error('Fecha_inicio') is-invalid @enderror" placeholder="Ingresar fecha inicio" name="fecha_inicio" id="fecha_inicio" value="{{ old('fecha_inicio') }}">
             @error('Fecha_inicio')
             <span class="text-danger">{{ $message }}</span>
@@ -92,7 +92,7 @@
 
           {{-- Fecha_fin --}}
           <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
-            <span style="color:red;">*</span>Fecha_fin</label>
+            <span style="color:red;">*</span>Fecha de culminacion</label>
             <input type="date" class="form-control form-control-proyecto @error('Fecha_fin') is-invalid @enderror" placeholder="Ingresar fecha final" name="fecha_fin" id="fecha_fin" value="{{ old('fecha_fin') }}">
             @error('Fecha_fin')
             <span class="text-danger">{{ $message }}</span>
@@ -120,8 +120,8 @@
         </div>
       </div>
       <div class="card-footer">
-        <button type="submit" class="btn btn-success btn-proyecto float-right mb-3">Save</button>
-        <a class="btn btn-primary float-right mr-3 mb-3" href="{{ route('proyectos') }}">Cancel</a>
+        <button type="submit" class="btn btn-success btn-proyecto float-right mb-3">Guardar</button>
+        <a class="btn btn-primary float-right mr-3 mb-3" href="{{ route('proyectos') }}">Cancelar</a>
       </div>
     </form>
   </div>

@@ -28,7 +28,7 @@
 
                         {{-- Name --}}
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <span style="color:red;">*</span>Name</label>
+                            <span style="color:red;">*</span>Nombre</label>
                             <input type="text" class="form-control form-control-user @error('name') is-invalid @enderror"
                                 id="exampleName" placeholder="Nombre" name="name" value="{{ old('name') }}">
 
@@ -56,7 +56,7 @@
 
                     {{-- Save Button --}}
                     <button type="submit" class="btn btn-success btn-user btn-block">
-                        Save
+                        Guardar
                     </button>
 
                 </form>

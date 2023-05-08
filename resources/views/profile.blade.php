@@ -19,7 +19,7 @@
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                     <img class="rounded-circle mt-5" width="150px" src="{{ asset('admin/img/undraw_profile.svg') }}">
                     <span class="font-weight-bold">{{ auth()->user()->full_name }}</span>
-                    <span class="text-black-50"><i>Role:
+                    <span class="text-black-50"><i>Rol:
                             {{ auth()->user()->roles
                                 ? auth()->user()->roles->pluck('name')->first()
                                 : 'N/A' }}</i></span>
@@ -30,13 +30,13 @@
                 {{-- Profile --}}
                 <div class="p-3 py-5">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 class="text-right">Profile</h4>
+                        <h4 class="text-right">Perfil</h4>
                     </div>
                     <form action="{{ route('profile.update') }}" method="POST">
                         @csrf
                         <div class="row mt-2">
                             <div class="col-md-4">
-                                <label class="labels">Primer Nombre</label>
+                                <label class="labels">Nombre</label>
                                 <input type="text" class="form-control @error('first_name') is-invalid @enderror"
                                     name="first_name" placeholder="Primer Nombre"
                                     value="{{ old('first_name') ? old('first_name') : auth()->user()->first_name }}">
@@ -68,7 +68,7 @@
                             </div>
                         </div>
                         <div class="mt-5 text-center">
-                            <button class="btn btn-primary profile-button" type="submit">Update Profile</button>
+                            <button class="btn btn-primary profile-button" type="submit">Actualizar perfil</button>
                         </div>
                     </form>
                 </div>
@@ -77,14 +77,14 @@
                 {{-- Change Password --}}
                 <div class="p-3 py-5">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 class="text-right">Change Password</h4>
+                        <h4 class="text-right">Cambiar contraseña</h4>
                     </div>
 
                     <form action="{{ route('profile.change-password') }}" method="POST">
                         @csrf
                         <div class="row mt-2">
                             <div class="col-md-4">
-                                <label class="labels">Current Password</label>
+                                <label class="labels">Contraseña actual</label>
                                 <input type="password" name="current_password"
                                     class="form-control @error('current_password') is-invalid @enderror"
                                     placeholder="Contraseña Actual" required>
@@ -93,7 +93,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-4">
-                                <label class="labels">New Password</label>
+                                <label class="labels">Nueva contraseña</label>
                                 <input type="password" name="new_password"
                                     class="form-control @error('new_password') is-invalid @enderror" required
                                     placeholder="Contraseña Nueva">
@@ -102,7 +102,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-4">
-                                <label class="labels">Confirm Password</label>
+                                <label class="labels">Confirmar nueva contraseña</label>
                                 <input type="password" name="new_confirm_password"
                                     class="form-control @error('new_confirm_password') is-invalid @enderror" required
                                     placeholder="Confirmar Contraseña">
@@ -112,7 +112,7 @@
                             </div>
                         </div>
                         <div class="mt-5 text-center">
-                            <button class="btn btn-success profile-button" type="submit">Change Password</button>
+                            <button class="btn btn-success profile-button" type="submit">Cambiar contraseña</button>
                         </div>
                     </form>
                 </div>

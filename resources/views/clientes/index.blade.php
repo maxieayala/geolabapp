@@ -62,9 +62,11 @@
                         <thead>
                             <tr>
                                 <th width="5%">Nombre cliente</th>
+
                                 <th width="5%">Email</th>
                                 <th width="5%">Telefono</th>
                                 <th width="5%">Tipo Cliente</th>
+
                                 <th width="3%">Opciones</th>
 
                             </tr>
@@ -88,7 +90,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <span style="color:red;">*</span>SIN REGISTROS
+                                <span style="color:red;">*</span>No hay registros
                             </tr>
                             @endforelse
 
