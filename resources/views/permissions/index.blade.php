@@ -7,7 +7,7 @@
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Permissions</h1>
+            <h1 class="h3 mb-0 text-gray-800">Permisons</h1>
             <a href="{{ route('permissions.create') }}" class="btn btn-sm btn-primary">
                  <i class="fas fa-plus"></i> Agregar
             </a>
@@ -19,7 +19,7 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Listado de Permisos</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Listado de permisos</h6>
 
             </div>
             <div class="card-body">
@@ -29,7 +29,7 @@
                             <tr>
                                 <th width="40%">Nombre</th>
                                 <th width="40%">Guard Name</th>
-                                <th width="20%">Action</th>
+                                <th width="20%">Accion</th>
                             </tr>
                         </thead>
                         <tbody>
