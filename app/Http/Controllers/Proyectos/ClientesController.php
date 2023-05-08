@@ -48,36 +48,38 @@ class ClientesController extends Controller
      */
     public function store(Request $request)
     {
-     // Validations 
+
+     // Validations
      $request->validate([
         'nombre'    => 'required',
-        'last_name'     => 'required',
-        'email'         => 'required|unique:users,email',
-        'mobile_number' => 'required|numeric|digits:10',
-        'tipo_cliente_id'       =>  'required|exists:tipo_clientes,id',
+        'email'         => 'required',
+        'telefono' => 'required|digits:8',
+        'cliente_id'       =>  'required',
         'status'       =>  'required|numeric|in:0,1',
     ]);
-
+    // dd($request);
     DB::beginTransaction();
-    try {
+    // try {
 
         // Store Data
-        $user = Cliente::create([
-            'first_name'    => $request->first_name,
-            'last_name'     => $request->last_name,
+        $Cliente = Cliente::create([
+            'nombre'    => $request->nombre,
             'email'         => $request->email,
-            'mobile_number' => $request->mobile_number,
-            'tipo_cliente_id'       => $request->tipo_cliente_id,
+            'telefono' => $request->telefono,
+            'tipocliente_id'       => $request->cliente_id,
             'status'        => $request->status,
+            'ruc'        => $request->ruc,
+            'direccion' => $request->ruc,
         ]);
-        DB::commit();
-        return redirect()->route('cliente.index')->with('success','Se creo de manera exitosa');
 
-    } catch (\Throwable $th) {
-        // Rollback and return with Error
-        DB::rollBack();
-        return redirect()->back()->withInput()->with('error', $th->getMessage());
-    }
+        DB::commit();
+        return redirect()->route('clientes')->with('success','Se creo de manera exitosa');
+
+    // } catch (\Throwable $th) {
+    //     // Rollback and return with Error
+    //     DB::rollBack();
+    //     return redirect()->back()->withInput()->with('error', $th->getMessage());
+    // }
     }
 
     /**
@@ -97,9 +99,11 @@ class ClientesController extends Controller
      * @param  \App\Models\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cliente $cliente)
+    public function edit($id)
     {
-        //
+        $cliente = Cliente::whereId($id)->first();
+
+        return view('clientes.edit', ['cliente' => $cliente]);
     }
 
     /**
@@ -124,7 +128,7 @@ class ClientesController extends Controller
     {
         //
     }
-    public function export() 
+    public function export()
     {
         // return Excel::download(new UsersExport, 'users.xlsx');
     }

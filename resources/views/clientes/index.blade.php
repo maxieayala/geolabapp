@@ -56,17 +56,17 @@
 
                 </form>
             </div>
-            <div class="card-body">
+            <div class="card-body">r
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-
                                 <th width="5%">Nombre cliente</th>
-                                <th width="5%">email</th>
-                                <th width="5%">telefono</th>
-                                <th width="5%">direccion</th>   
-                                <th width="5%">Estado</th>
+
+                                <th width="5%">Email</th>
+                                <th width="5%">Telefono</th>
+                                <th width="5%">Tipo Cliente</th>
+
                                 <th width="3%">Opciones</th>
 
                             </tr>
@@ -74,12 +74,12 @@
                         <tbody>
                             @forelse ($clientes as $cliente)
                             <tr>
-                                <td>{{$cliente->nombre}}</td>
+                                <td>{{$cliente->Nombre}}</td>
                                 <td>{{$cliente->email}}</td>
                                 <td>{{$cliente->telefono}}</td>
-                                <td>{{$cliente->direccion}}</td>
+                                <td>{{$cliente->gettipocliente()}}</td>
                                 <td style="display: flex">
-                                    <a href="{{ route('clientes.edit', ['cliente' => $cliente->id]) }}"
+                                    <a href="{{ route('cliente_edit', ['cliente' => $cliente->id]) }}"
                                         class="btn btn-primary m-2">
                                         <i class="fa fa-pen"></i>
                                     </a>
