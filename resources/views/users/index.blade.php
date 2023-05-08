@@ -7,7 +7,7 @@
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Users</h1>
+            <h1 class="h3 mb-0 text-gray-800">Usuarios</h1>
             <div class="row">
                 <div class="col-md-6">
                     <a href="{{ route('users.create') }}" class="btn btn-sm btn-primary">
@@ -39,10 +39,10 @@
                         <thead>
                             <tr>
                                 <th width="20%">Nombre</th>
-                                <th width="25%">Email</th>
+                                <th width="25%">Correo</th>
                                 <th width="15%">Celular</th>
                                 <th width="15%">Rol</th>
-                                <th width="15%">Status</th>
+                                <th width="15%">Estado</th>
                                 <th width="10%">Acciones</th>
                             </tr>
                         </thead>
@@ -55,9 +55,9 @@
                                     <td>{{ $user->roles ? $user->roles->pluck('name')->first() : 'N/A' }}</td>
                                     <td>
                                         @if ($user->status == 0)
-                                            <span class="badge badge-danger">Inactive</span>
+                                            <span class="badge badge-danger">Activo</span>
                                         @elseif ($user->status == 1)
-                                            <span class="badge badge-success">Active</span>
+                                            <span class="badge badge-success">Inactivo</span>
                                         @endif
                                     </td>
                                     <td style="display: flex">

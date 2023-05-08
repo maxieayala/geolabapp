@@ -66,7 +66,7 @@
                                 <th width="5%">email</th>
                                 <th width="5%">telefono</th>
                                 <th width="5%">direccion</th>   
-                                <th width="5%">Estatus</th>
+                                <th width="5%">Estado</th>
                                 <th width="3%">Opciones</th>
 
                             </tr>
@@ -90,7 +90,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <span style="color:red;">*</span>SIN REGISTROS
+                                <span style="color:red;">*</span>No hay registros
                             </tr>
                             @endforelse
 
