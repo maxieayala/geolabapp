@@ -67,7 +67,7 @@
                         {{-- Mobile Number --}}
                         <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
                             <span style="color:red;">*</span>Mobile Number</label>
-                            <input type="text"
+                            <input type="tel"
                                 class="form-control form-control-user @error('mobile_number') is-invalid @enderror"
                                 id="exampleMobile" placeholder="Numero de Telefono" name="mobile_number"
                                 value="{{ old('mobile_number') }}">

@@ -41,6 +41,10 @@ Route::get('/proyecto/exportar', [ProyectosController::class, 'export'])->name('
 Route::get('/clientes', [ClientesController::class, 'index'])->name('clientes');
 Route::get('/clientes/add', [ClientesController::class, 'create'])->name('clientes_Add');
 Route::post('/clientes/guardar', [ClientesController::class, 'store'])->name('cliente_guardar');
+Route::get('/clientes/{cliente}', [ClientesController::class, 'edit'])->name('cliente_edit');
+Route::post('/clientes/{cliente}', [ClientesController::class, 'update'])->name('Cliente-update');
+
+
 Route::get('/clientes/exportar', [ClientesController::class, 'export'])->name('clientes_Exportar');
 
 
@@ -66,7 +70,7 @@ Route::resource('roles', App\Http\Controllers\RolesController::class);
 // Permissions
 Route::resource('permissions', App\Http\Controllers\PermissionsController::class);
 
-// Users 
+// Users
 Route::middleware('auth')->prefix('users')->name('users.')->group(function () {
     Route::get('/', [UserController::class, 'index'])->name('index');
     Route::get('/create', [UserController::class, 'create'])->name('create');

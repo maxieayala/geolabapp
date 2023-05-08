@@ -31,7 +31,7 @@
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <span style="color:red;">*</span>Nombre</label>
                             <input type="text" class="form-control form-control-user @error('name') is-invalid @enderror"
-                                id="exampleName" placeholder="Nombre" name="nombre" value="{{ old('nombre') }}">
+                                id="nombre" placeholder="Nombre" name="nombre" value="{{ old('nombre') }}">
 
                             @error('name')
                                 <span class="text-danger">{{ $message }}</span>
@@ -44,7 +44,7 @@
                             <span style="color:red;">*</span>Email</label>
                             <input type="email"
                                 class="form-control form-control-user @error('email') is-invalid @enderror"
-                                id="exampleEmail" placeholder="Email" name="email" value="{{ old('email') }}">
+                                id="email" placeholder="Email" name="email" value="{{ old('email') }}">
 
                             @error('email')
                                 <span class="text-danger">{{ $message }}</span>
@@ -54,9 +54,9 @@
                         {{-- Mobile Number --}}
                         <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
                             <span style="color:red;">*</span>Telefono</label>
-                            <input type="text"
+                            <input type="tel"
                                 class="form-control form-control-user @error('telefono') is-invalid @enderror"
-                                id="exampleMobile" placeholder="Numero de Telefono" name="telefono"
+                                id="telefono" placeholder="Numero de Telefono" name="telefono"
                                 value="{{ old('telefono') }}">
 
                             @error('telefono')
@@ -87,7 +87,7 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                   
+
                         {{-- Status --}}
                         <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
                             <span style="color:red;">*</span>Status</label>
@@ -110,7 +110,7 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                   
+
 
 
                     </div>
@@ -121,7 +121,7 @@
                     </div>
                 </div>
                 </form>
-        
+
         </div>
 
     </div>
