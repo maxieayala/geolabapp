@@ -63,7 +63,8 @@
 							<td>{{$proyecto->fecha_inicio}}</td>
 							<td>{{$proyecto->fecha_fin}}</td>
 							<td style="display: flex">
-								<a href="" class="btn btn-primary m-2">
+								<a href="{{ route('proyecto_edit', ['proyecto' => $proyecto->id]) }}"
+                   class="btn btn-primary m-2">
 									<i class="fa fa-pen"></i>
 								</a>
 								<a class="btn btn-danger m-2" href="#" data-toggle="modal" data-target="#deleteModal">
