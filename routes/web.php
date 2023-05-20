@@ -33,10 +33,11 @@ Route::get('/album', [MuestrasController::class, 'index'])->name('albumfotografi
 
 //Proyectos
 Route::post('/proyectos/guardar', [ProyectosController::class, 'store'])->name('proyecto_guardar');
-Route::get('/proyectos/{proyecto}', [ProyectosController::class, 'edit'])->name('proyecto_edit');
+Route::get('/proyectos/edit/{proyecto}', [ProyectosController::class, 'edit'])->name('proyecto_edit');
 Route::put('/proyectos/{id}', [ProyectosController::class, 'update'])->name('proyectos.update');
+Route::delete('/proyectos/eliminar/{proyecto}', [ProyectosController::class, 'eliminar'])->name('proyectos.destroy');
 Route::get('/proyectos/{proyecto}', [ProyectosController::class, 'show'])->name('proyectos.show');
-Route::get('/proyecto', [ProyectosController::class, 'index'])->name('proyectos');
+Route::get('/proyectos', [ProyectosController::class, 'index'])->name('proyectos');
 Route::get('/proyectoAdd', [ProyectosController::class, 'create'])->name('proyectosAgregar');
 Route::get('/proyecto/exportar', [ProyectosController::class, 'export'])->name('proyectosExportar');
 

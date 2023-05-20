@@ -17,13 +17,18 @@ class ProyectosController extends Controller
 
   public function index()
   {
-    $proyectos = Proyecto::with(['clientes' => function ($query) {
-      $query->orderBy('created_at', 'desc');
-    }])
-      ->orderBy('proyectos.id', 'desc')
+      $proyectos = Proyecto::with(['clientes' => function ($query) {
+          $query->orderBy('created_at', 'desc');
+      }])
+      ->orderBy('id', 'desc')
       ->paginate(5);
-
-    return view('proyectos.index', compact('proyectos'));
+  
+      $proyectos->getCollection()->transform(function ($proyecto) {
+          $proyecto->nombre_cliente = Cliente::findOrFail($proyecto->cliente_id)->Nombre;
+          return $proyecto;
+      });
+  
+      return view('proyectos.index', compact('proyectos'));
   }
 
   public function create()
@@ -70,12 +75,16 @@ class ProyectosController extends Controller
     return view('proyectos.edit', ['proyecto' => $proyecto, 'todos_los_clientes' => $todos_los_clientes]);
   }
 
+  public function eliminar(Request $request, $id)
+  {
+    $proyecto = Proyecto::whereId($id)->first();
+    $proyecto->delete();
+    return redirect()->route('proyectos')->with('success', 'Proyecto eliminado exitosamente');
+  }
+
   public function update(Request $request, $id)
   {
-    // Buscar el registro a actualizar en la base de datos
     $proyecto = Proyecto::findOrFail($id);
-
-    // Actualizar los campos del registro con los nuevos valores
 
     $proyecto->nombre = $request->input('nombre');
     $proyecto->direccion = $request->input('direccion');
@@ -86,16 +95,10 @@ class ProyectosController extends Controller
     $proyecto->telefono_contacto = $request->input('telefono_contacto');
     $proyecto->status = $request->input('status');
     $proyecto->cliente_id = $request->input('cliente_id');
-
-    // Guardar los cambios en la base de datos
+    
     $proyecto->save();
 
-    // Redirigir al usuario a la página de detalles del recurso actualizado
     return redirect()->route('proyectos.show', $proyecto->id);
-  }
-
-  public function destroy(Proyecto $proyecto)
-  {
   }
 
   public function export()
