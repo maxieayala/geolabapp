@@ -56,8 +56,7 @@
                                             <input class="custom-control-input" type="checkbox" name="remember"
                                                 id="customCheck" {{ old('remember') ? 'checked' : '' }}>
 
-                                            <label class="custom-control-label" for="customCheck">Remember
-                                                Me</label>
+                                            <label class="custom-control-label" for="customCheck">Recordar Contraseña</label>
                                         </div>
                                     </div>
                                     <button class="btn btn-primary btn-user btn-block">
