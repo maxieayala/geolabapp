@@ -57,18 +57,37 @@
 					<tbody>
 						@forelse ($proyectos as $proyecto)
 						<tr>
-							<td>{{$proyecto->cliente_id}}</td>
+							<td>{{$proyecto->nombre_cliente}}</td>
 							<td>{{$proyecto->nombre}}</td>
 							<td>{{$proyecto->status}}</td>
 							<td>{{$proyecto->fecha_inicio}}</td>
 							<td>{{$proyecto->fecha_fin}}</td>
 							<td style="display: flex">
-								<a href="" class="btn btn-primary m-2">
-									<i class="fa fa-pen"></i>
-								</a>
-								<a class="btn btn-danger m-2" href="#" data-toggle="modal" data-target="#deleteModal">
-									<i class="fas fa-trash"></i>
-								</a>
+                <a href="{{ route('proyectos.show', ['proyecto' => $proyecto->id]) }}"
+                  class="btn btn-primary m-2">
+                  <i class="fas fa-eye"></i>
+                </a>
+                <a href="{{ route('proyecto_edit', ['proyecto' => $proyecto->id]) }}"
+                  class="btn btn-primary m-2">
+                  <i class="fa fa-pen"></i>
+                </a>
+                <a href="{{ route('proyectos.destroy', $proyecto->id) }}"
+                  class="btn btn-danger m-2"
+                    onclick=
+                    "
+                      event.preventDefault();
+                      if (confirm('¿Estás seguro de eliminar el proyecto?')) {
+                        document.getElementById('delete-form-{{ $proyecto->id }}').submit();
+                      }
+                    "
+                  >
+                  <i class="fas fa-trash"></i>
+                </a>
+                <form id="delete-form-{{ $proyecto->id }}" action="{{ route('proyectos.destroy', $proyecto->id) }}"
+                      method="POST" style="display: none;">
+                  @csrf
+                  @method('DELETE')
+                </form>
 							</td>
 						</tr>
 						@empty

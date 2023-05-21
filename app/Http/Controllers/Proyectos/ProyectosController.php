@@ -17,13 +17,18 @@ class ProyectosController extends Controller
 
   public function index()
   {
-    $proyectos = Proyecto::with(['clientes' => function ($query) {
-      $query->orderBy('created_at', 'desc');
-    }])
-      ->orderBy('proyectos.id', 'desc')
+      $proyectos = Proyecto::with(['clientes' => function ($query) {
+          $query->orderBy('created_at', 'desc');
+      }])
+      ->orderBy('id', 'desc')
       ->paginate(5);
-
-    return view('proyectos.index', compact('proyectos'));
+  
+      $proyectos->getCollection()->transform(function ($proyecto) {
+          $proyecto->nombre_cliente = Cliente::findOrFail($proyecto->cliente_id)->Nombre;
+          return $proyecto;
+      });
+  
+      return view('proyectos.index', compact('proyectos'));
   }
 
   public function create()
@@ -55,20 +60,45 @@ class ProyectosController extends Controller
     return view('proyectos.add', compact('clientes'));
   }
 
-  public function show(Proyecto $proyecto)
+  public function show($id)
   {
+    $proyecto = Proyecto::findOrFail($id);
+
+    return view('proyectos.show', compact('proyecto'));
   }
 
-  public function edit(Proyecto $proyecto)
-  {
+  public function edit($id)
+  {        
+    $proyecto = Proyecto::whereId($id)->first();
+    $todos_los_clientes = Cliente::all();
+
+    return view('proyectos.edit', ['proyecto' => $proyecto, 'todos_los_clientes' => $todos_los_clientes]);
   }
 
-  public function update(Request $request, Proyecto $proyecto)
+  public function eliminar(Request $request, $id)
   {
+    $proyecto = Proyecto::whereId($id)->first();
+    $proyecto->delete();
+    return redirect()->route('proyectos')->with('success', 'Proyecto eliminado exitosamente');
   }
 
-  public function destroy(Proyecto $proyecto)
+  public function update(Request $request, $id)
   {
+    $proyecto = Proyecto::findOrFail($id);
+
+    $proyecto->nombre = $request->input('nombre');
+    $proyecto->direccion = $request->input('direccion');
+    $proyecto->ubicacion = $request->input('ubicacion');
+    $proyecto->fecha_inicio = $request->input('fecha_inicio');
+    $proyecto->fecha_fin = $request->input('fecha_fin');
+    $proyecto->nombre_contacto = $request->input('nombre_contacto');
+    $proyecto->telefono_contacto = $request->input('telefono_contacto');
+    $proyecto->status = $request->input('status');
+    $proyecto->cliente_id = $request->input('cliente_id');
+    
+    $proyecto->save();
+
+    return redirect()->route('proyectos.show', $proyecto->id);
   }
 
   public function export()
