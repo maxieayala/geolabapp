@@ -141,8 +141,17 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'cliente_id' => [
+            'required' => 'Cliente no debe de estar vacío. Por favor escoger uno.',
+        ],
+        'telefono_contacto' => [
+            'numeric' => 'Telefono Contacto debe ser numérico.',
+        ],
+        'fecha_inicio' => [
+            'date' => 'Fecha de Inicio debe ser una fecha válida (MM/DD/YYYY).',
+        ],
+        'fecha_fin' => [
+            'date' => 'Fecha de Fin debe ser una fecha válida (MM/DD/YYYY).',
         ],
     ],
 
