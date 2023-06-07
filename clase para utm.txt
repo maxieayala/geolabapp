@@ -1,0 +1,87 @@
+function utm_to_latlng($easting, $northing, $zone) {
+
+    // Calculate the false easting and false northing for the zone.
+    $falseEasting = 500000 + (6 * ($zone - 1));
+    $falseNorthing = 10000000 + (zone * 100000);
+
+    // Calculate the central meridian for the zone.
+    $centralMeridian = (6 * $zone) - 180;
+
+    // Calculate the scale factor for the zone.
+    $scaleFactor = 0.9996;
+
+    // Calculate the latitude and longitude values.
+    $latitude = (atan2(($northing - $falseNorthing) * $scaleFactor, ($easting - $falseEasting)) * 180 / pi());
+    $longitude = ($centralMeridian + atan2(0.0000112 * ($northing - $falseNorthing), $easting - $falseEasting) * 180 / pi());
+
+    // Return the latitude and longitude values.
+    return array(
+        'latitude' => $latitude,
+        'longitude' => $longitude
+    );
+}
+
+Nicaragua es zona 16
+
+*******************************
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class UTMController extends Controller
+{
+    public function index()
+    {
+        return view('utm');
+    }
+
+    public function convert(Request $request)
+    {
+        $easting = $request->input('easting');
+        $northing = $request->input('northing');
+        $zone = $request->input('zone');
+
+        $latlng = utm_to_latlng($easting, $northing, $zone);
+
+        return view('utm', compact('latlng'));
+    }
+}
+
+
+*********************************
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class TestController extends Controller
+{
+    public function index()
+    {
+        return view('test');
+    }
+
+    public function store(Request $request)
+    {
+        $easting = $request->input('easting');
+        $northing = $request->input('northing');
+        $zone = $request->input('zone');
+
+        $latlng = utm_to_latlng($easting, $northing, $zone);
+
+        $test = new Test();
+        $test->name = $request->input('name');
+        $test->utm_easting = $easting;
+        $test->utm_northing = $northing;
+        $test->utm_zone = $zone;
+        $test->latitude = $latlng['latitude'];
+        $test->longitude = $latlng['longitude'];
+
+        $test->save();
+
+        return redirect('test');
+    }
+}

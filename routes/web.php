@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SondeoController;
 use App\Http\Controllers\Muestras\MuestrasController;
 use App\Http\Controllers\Proyectos\ProyectosController;
 use App\Http\Controllers\Proyectos\ClientesController;
 use App\Http\Controllers\Opciones\CatalogosController;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +27,9 @@ Route::post('/catalogoAdd', [CatalogosController::class, 'store'])->name('catalo
 Route::put('/catalogoupdate', [CatalogosController::class, 'update'])->name('catalogo.update');
 
 Route::delete('/catalogo/delete', [CatalogosController::class, 'destroy'])->name('catalogo.destroy');
-
+//sondeos
+Route::resource('sondeo', SondeoController::class);
+Route::get('/getproyectos/{clienteId}', [SondeoController::class, 'obtenerProyectos'])->name('sondeo.getproyectos');
 
 //Muestras
 Route::get('/muestras', [MuestrasController::class, 'index'])->name('muestras');

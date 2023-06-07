@@ -12,17 +12,10 @@ class Muestra extends Model
     protected $table = 'muestras';
 
     protected $fillable = [
-        // 'tipo_muestra',
-        'estacion',
-        'latitud',
-        'longitud',
-        'banda',
         'sondeo',
         'desde',
         'hasta',
         'descripcionvisual',
-
-        // otros campos que puedas necesitar
     ];
       /**
      * The accessors to append to the model's array form.
