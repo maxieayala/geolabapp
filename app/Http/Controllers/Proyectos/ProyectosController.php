@@ -105,4 +105,18 @@ class ProyectosController extends Controller
   {
     // return Excel::download(new UsersExport, 'users.xlsx');
   }
+
+  public function agregarAdjunto(Request $request, Proyecto $proyecto)
+  {
+    // Validar y procesar los datos del formulario
+
+    $proyectoDetalleAdjunto = new ProyectoDetalleAdjunto();
+    // Asignar los valores de los campos del formulario al modelo $proyectoDetalleAdjunto
+
+    $proyecto->proyectoDetalleAdjuntos()->save($proyectoDetalleAdjunto);
+
+    // Redireccionar a la vista de detalles del proyecto
+    return redirect()->route('proyecto.detalles', $proyecto->id);
+  }
+
 }

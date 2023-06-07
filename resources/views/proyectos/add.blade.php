@@ -118,6 +118,36 @@
           </div>
 
         </div>
+
+
+
+        <div class="row">
+  <div class='panel large-6 columns'>
+    <div class='panel-title yellow small-12'>
+      <span>proyectos</span>
+    </div>
+    <div class='panel-content has_many'>
+      <div class='headers hide-on-med-and-down'>
+        <div class="small-12 medium-12 large-12 columns">
+          <div class='medium-12 large-12 columns'><span>proyectos</span></div>
+        </div>
+      </div>
+      <div id='proyectos_items' class='has-many-items'>
+        
+      </div>
+      <div class='row'>
+        <a href='#' class='add-has_many fa fa-plus' data-target-id='proyectos_items' id='add_proyectos'></a>
+      </div>
+      <div id='proyectos_items_template' style='display:none;'>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
       </div>
       <div class="card-footer">
         <button type="submit" class="btn btn-success btn-proyecto float-right mb-3">Guardar</button>
@@ -128,3 +158,54 @@
 </div>
 
 @endsection
+
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var addInputsBtn = document.getElementById('add-inputs-btn');
+  var dynamicInputsDiv = document.getElementById('dynamic-inputs');
+  var inputCount = 2; // Iniciamos el contador en 1
+
+  addInputsBtn.addEventListener('click', function() {
+    var inputGroup = document.createElement('div');
+    inputGroup.classList.add('form-group', 'row');
+
+    var input1Div = document.createElement('div');
+    input1Div.classList.add('col-sm-6', 'mb-3', 'mt-3', 'mb-sm-0');
+    var input1Label = document.createElement('label');
+    input1Label.setAttribute('for', 'input' + inputCount);
+    input1Label.textContent = 'Descripción';
+    var input1 = document.createElement('input');
+    input1.setAttribute('type', 'text');
+    input1.classList.add('form-control');
+    input1.setAttribute('name', 'input' + inputCount);
+
+    var input2Div = document.createElement('div');
+    input2Div.classList.add('col-sm-6', 'mb-3', 'mt-3', 'mb-sm-0');
+    var input2Label = document.createElement('label');
+    input2Label.setAttribute('for', 'input' + (inputCount));
+    input2Label.textContent = 'URL';
+    var input2 = document.createElement('input');
+    input2.setAttribute('type', 'text');
+    input2.classList.add('form-control');
+    input2.setAttribute('name', 'input' + (inputCount));
+
+    input1Div.appendChild(input1Label);
+    input1Div.appendChild(input1);
+    input2Div.appendChild(input2Label);
+    input2Div.appendChild(input2);
+
+    inputGroup.appendChild(input1Div);
+    inputGroup.appendChild(input2Div);
+
+    dynamicInputsDiv.appendChild(inputGroup);
+
+    inputCount += 1; // Incrementa el contador en 2
+  });
+});
+
+</script>
+@endsection
+
+@section('scripts')
+@show
