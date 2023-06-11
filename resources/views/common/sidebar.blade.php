@@ -9,10 +9,7 @@
     </a>
     <!-- Nav Item - Pages Collapse Menu -->
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Modulo Campo
-    </div>
+
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#taTpDropDownMuestras"
             aria-expanded="true" aria-controls="taTpDropDown">
@@ -23,19 +20,18 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Sondeos</h6>
                 <a class="collapse-item" href="{{ route('sondeo.index') }}">Sondeos</a>
-                <a class="collapse-item" href="{{ route('muestras') }}">Muestras</a>
+                <a class="collapse-item" href="{{ route('sondeo.create') }}">Agregar Sondeo</a>
                 <a class="collapse-item" href="{{ route('albumfotografico') }}">Imagenes de campo</a>
-
+            </div>
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Muestras</h6>
+                <a class="collapse-item" href="{{ route('muestras') }}">Muestras</a>
             </div>
         </div>
     </li>
     <!-- Divider -->
-  <!-- Nav Item - Pages Collapse Menu -->
+    <!-- Nav Item - Pages Collapse Menu -->
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Modulo Laboratorio
-    </div>
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#taTpDropDownLaboratorio"
             aria-expanded="true" aria-controls="taTpDropDown">
@@ -78,13 +74,13 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-    Sistema
+        Sistema
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#taTpDropDown"
-            aria-expanded="true" aria-controls="taTpDropDown">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#taTpDropDown" aria-expanded="true"
+            aria-controls="taTpDropDown">
             <i class="fas fa-user-alt"></i>
             <span>Administracion de Usuario</span>
         </a>
@@ -102,36 +98,48 @@
     <hr class="sidebar-divider">
 
     @hasrole('Admin')
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Admin Section
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Admin Section
+    </div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
+            aria-controls="collapsePages">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Masters</span>
+        </a>
+        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Roles & Permisos</h6>
+                <a class="collapse-item" href="{{ route('roles.index') }}">Roles</a>
+                <a class="collapse-item" href="{{ route('permissions.index') }}">Permisos</a>
+            </div>
         </div>
-
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                aria-expanded="true" aria-controls="collapsePages">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>Masters</span>
-            </a>
-            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Roles & Permisos</h6>
-                    <a class="collapse-item" href="{{ route('roles.index') }}">Roles</a>
-                    <a class="collapse-item" href="{{ route('permissions.index') }}">Permisos</a>
-                </div>
+        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Opciones de sistema</h6>
+                <a class="collapse-item" href="{{ route('catalogo.index') }}">Catalogo</a>
             </div>
-            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Opciones de sistema</h6>
-                    <a class="collapse-item" href="{{ route('catalogo.index') }}">Catalogo</a>
-                </div>
-            </div>
-        </li>
+        </div>
+    </li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
     @endhasrole
+    <li class="nav-item">
+        <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
+            <i class="fas fa-info"></i>
+            <span>Acerca de</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
+            <span>Ayuda</span>
+        </a>
+    </li>
 
     <li class="nav-item">
         <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
@@ -139,6 +147,7 @@
             <span>Salir</span>
         </a>
     </li>
+
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>

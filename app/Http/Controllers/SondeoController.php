@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sondeo;
+use App\Models\Cliente;
 use App\Models\Opciones\Catalogo;
 use App\Models\Proyecto;
-use Illuminate\Http\Request;
+use App\Models\Sondeo;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
-use App\Models\Cliente;
+use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class SondeoController extends Controller
 {
@@ -15,6 +16,7 @@ class SondeoController extends Controller
     {
         $this->middleware('auth');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -24,13 +26,14 @@ class SondeoController extends Controller
     {
         $sondeos = Sondeo::all();
         $grafico = $this->stackedColumnChart();
+
         return view('sondeos.index', compact('sondeos'));
     }
 
     public function create()
     {
         $tiposSondeo = catalogo::where('id_padre', '=', '1')->get();
-        $clientes = Cliente::all();
+        $clientes = Cliente::pluck('Nombre', 'id');
 
         return view('sondeos.add', compact('tiposSondeo', 'clientes'));
     }
@@ -41,14 +44,29 @@ class SondeoController extends Controller
      *
      * @param clienteId El parámetro "clienteId" es una variable que representa el ID de un cliente. Se
      * utiliza en la función para recuperar todos los proyectos asociados con ese ID de cliente.
-     *
      * @return Una respuesta JSON que contiene todos los proyectos asociados con el ID de cliente dado.
      */
     public function obtenerProyectos($clienteId)
     {
-        $proyectos = Proyecto::where('cliente_id', $clienteId)->get();
-        
+
+        $proyectos = Proyecto::where('cliente_id', $clienteId)->get()->pluck('nombre', 'id');
+
         return response()->json($proyectos);
+    }
+
+    public function getSondeos($proyectoId)
+    {
+        $sondeo = Sondeo::where('proyecto_id', $proyectoId)->get();
+
+        return DataTables::of($sondeo)->make(true)
+            ->addColumn('action', function ($row) {
+                $btn = '<a href="javascript:void(0);" class="btn btn-warning btn-sm editbtn" data-id="'.$row->id.'"><i class="fas fa-edit"></i></a>';
+                $btn = $btn.'&nbsp&nbsp<a href="javascript:void(0);" data-id="'.$row->id.'" class="btn btn-danger btn-sm deletebtn"> <i class="fas fa-trash"></i> </a>';
+
+                return $btn;
+            })
+            ->rawColumns(['action'])
+            ->make(true);
     }
 
     public function store(Request $request)
@@ -77,6 +95,7 @@ class SondeoController extends Controller
     {
         $tiposSondeo = Catalogo::all();
         $proyectos = Proyecto::all();
+
         return view('sondeos.edit', compact('sondeo', 'tiposSondeo', 'proyectos'));
     }
 
@@ -103,11 +122,11 @@ class SondeoController extends Controller
 
         return redirect()->route('sondeo.index')->with('success', 'Sondeo deleted successfully.');
     }
+
     public function stackedColumnChart()
     {
         $chart = new LarapexChart();
 
-
-        return   $chart;
+        return $chart;
     }
 }

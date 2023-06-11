@@ -18,8 +18,8 @@ class RolesController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index']]);
-        $this->middleware('permission:role-create', ['only' => ['create','store']]);
-        $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:role-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:role-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:role-delete', ['only' => ['destroy']]);
     }
 
@@ -33,7 +33,7 @@ class RolesController extends Controller
         $roles = Role::paginate(10);
 
         return view('roles.index', [
-            'roles' => $roles
+            'roles' => $roles,
         ]);
     }
 
@@ -52,7 +52,6 @@ class RolesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -61,18 +60,20 @@ class RolesController extends Controller
         try {
             $request->validate([
                 'name' => 'required',
-                'guard_name' => 'required'
+                'guard_name' => 'required',
             ]);
-    
+
             Role::create($request->all());
 
             DB::commit();
-            return redirect()->route('roles.index')->with('success','Rol creado con exito');
+
+            return redirect()->route('roles.index')->with('success', 'Rol creado con exito');
         } catch (\Throwable $th) {
             DB::rollback();
-            return redirect()->route('roles.add')->with('error',$th->getMessage());
+
+            return redirect()->route('roles.add')->with('error', $th->getMessage());
         }
-        
+
     }
 
     /**
@@ -95,7 +96,7 @@ class RolesController extends Controller
     public function edit($id)
     {
         $role = Role::whereId($id)->with('permissions')->first();
-        
+
         $permissions = Permission::all();
 
         return view('roles.edit', ['role' => $role, 'permissions' => $permissions]);
@@ -104,7 +105,6 @@ class RolesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -116,9 +116,9 @@ class RolesController extends Controller
             // Validate Request
             $request->validate([
                 'name' => 'required',
-                'guard_name' => 'required'
+                'guard_name' => 'required',
             ]);
-            
+
             $role = Role::whereId($id)->first();
 
             $role->name = $request->name;
@@ -128,12 +128,14 @@ class RolesController extends Controller
             // Sync Permissions
             $permissions = $request->permissions;
             $role->syncPermissions($permissions);
-            
+
             DB::commit();
-            return redirect()->route('roles.index')->with('success','Se  actualizo de manera exitosa');
+
+            return redirect()->route('roles.index')->with('success', 'Se  actualizo de manera exitosa');
         } catch (\Throwable $th) {
             DB::rollback();
-            return redirect()->route('roles.edit',['role' => $role])->with('error',$th->getMessage());
+
+            return redirect()->route('roles.edit', ['role' => $role])->with('error', $th->getMessage());
         }
     }
 
@@ -147,14 +149,16 @@ class RolesController extends Controller
     {
         DB::beginTransaction();
         try {
-    
+
             Role::whereId($id)->delete();
-            
+
             DB::commit();
-            return redirect()->route('roles.index')->with('success','El rol fue eliminado');
+
+            return redirect()->route('roles.index')->with('success', 'El rol fue eliminado');
         } catch (\Throwable $th) {
             DB::rollback();
-            return redirect()->route('roles.index')->with('error',$th->getMessage());
+
+            return redirect()->route('roles.index')->with('error', $th->getMessage());
         }
     }
 }

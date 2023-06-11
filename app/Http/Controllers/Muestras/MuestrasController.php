@@ -41,7 +41,6 @@ class MuestrasController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -49,9 +48,9 @@ class MuestrasController extends Controller
         $this->authorize('create', new muestra);
 
         $newmuestra = $request->validate([
-            'name'      => 'required|max:60',
-            'address'   => 'nullable|max:255',
-            'latitude'  => 'nullable|required_with:longitude|max:15',
+            'name' => 'required|max:60',
+            'address' => 'nullable|max:255',
+            'latitude' => 'nullable|required_with:longitude|max:15',
             'longitude' => 'nullable|required_with:latitude|max:15',
         ]);
         $newmuestra['creator_id'] = auth()->id();
@@ -64,7 +63,6 @@ class MuestrasController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Muestra  $muestra
      * @return \Illuminate\Http\Response
      */
     public function show(Muestra $muestra)
@@ -75,7 +73,6 @@ class MuestrasController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Muestra  $muestra
      * @return \Illuminate\Http\Response
      */
     public function edit(Muestra $muestra)
@@ -88,8 +85,6 @@ class MuestrasController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Muestra  $muestra
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Muestra $muestra)
@@ -97,9 +92,9 @@ class MuestrasController extends Controller
         $this->authorize('update', $muestra);
 
         $muestraData = $request->validate([
-            'name'      => 'required|max:60',
-            'address'   => 'nullable|max:255',
-            'latitude'  => 'nullable|required_with:longitude|max:15',
+            'name' => 'required|max:60',
+            'address' => 'nullable|max:255',
+            'latitude' => 'nullable|required_with:longitude|max:15',
             'longitude' => 'nullable|required_with:latitude|max:15',
         ]);
         $muestra->update($muestraData);
@@ -110,10 +105,9 @@ class MuestrasController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Muestra  $muestra
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Muestra $muestra, Request $request )
+    public function destroy(Muestra $muestra, Request $request)
     {
         $this->authorize('delete', $muestra);
 

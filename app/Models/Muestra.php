@@ -17,7 +17,8 @@ class Muestra extends Model
         'hasta',
         'descripcionvisual',
     ];
-      /**
+
+    /**
      * The accessors to append to the model's array form.
      *
      * @var array

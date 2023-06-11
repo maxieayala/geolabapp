@@ -1,13 +1,12 @@
 <?php
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\SondeoController;
 use App\Http\Controllers\Muestras\MuestrasController;
-use App\Http\Controllers\Proyectos\ProyectosController;
-use App\Http\Controllers\Proyectos\ClientesController;
 use App\Http\Controllers\Opciones\CatalogosController;
-
+use App\Http\Controllers\Proyectos\ClientesController;
+use App\Http\Controllers\Proyectos\ProyectosController;
+use App\Http\Controllers\SondeoController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +30,7 @@ Route::delete('/catalogo/delete', [CatalogosController::class, 'destroy'])->name
 Route::resource('sondeo', SondeoController::class);
 Route::get('/getproyectos/{clienteId}', [SondeoController::class, 'obtenerProyectos'])->name('sondeo.getproyectos');
 
+Route::get('/getSondeos/{proyectoid}', [SondeoController::class, 'getSondeos'])->name('sondeo.getSondeos');
 //Muestras
 Route::get('/muestras', [MuestrasController::class, 'index'])->name('muestras');
 Route::get('/album', [MuestrasController::class, 'index'])->name('albumfotografico');
@@ -52,10 +52,7 @@ Route::post('/clientes/guardar', [ClientesController::class, 'store'])->name('cl
 Route::get('/clientes/{cliente}', [ClientesController::class, 'edit'])->name('cliente_edit');
 Route::post('/clientes/{cliente}', [ClientesController::class, 'update'])->name('Cliente-update');
 
-
 Route::get('/clientes/exportar', [ClientesController::class, 'export'])->name('clientes_Exportar');
-
-
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -87,7 +84,6 @@ Route::middleware('auth')->prefix('users')->name('users.')->group(function () {
     Route::put('/update/{user}', [UserController::class, 'update'])->name('update');
     Route::delete('/delete/{user}', [UserController::class, 'delete'])->name('destroy');
     Route::get('/update/status/{user_id}/{status}', [UserController::class, 'updateStatus'])->name('status');
-
 
     Route::get('/import-users', [UserController::class, 'importUsers'])->name('import');
     Route::post('/upload-users', [UserController::class, 'uploadUsers'])->name('upload');

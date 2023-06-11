@@ -21,14 +21,13 @@ class Sondeo extends Model
         'instrumentacion',
     ];
 
-
     public function muestras()
     {
         return $this->hasMany(Muestra::class);
     }
+
     public function proyecto()
     {
         return $this->belongsTo(Proyecto::class);
     }
-
 }

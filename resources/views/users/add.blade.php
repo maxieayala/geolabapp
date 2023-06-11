@@ -19,7 +19,7 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Agregar nuevo usuario/h6>
+                <h6 class="m-0 font-weight-bold text-primary">Agregar nuevo usuario</h6>
             </div>
             <form method="POST" action="{{ route('users.store') }}">
                 @csrf
@@ -69,7 +69,6 @@
 
                             <span style="color:red;">*</span>Celular</label>
                             <input type="text"
-
                                 class="form-control form-control-user @error('mobile_number') is-invalid @enderror"
                                 id="exampleMobile" placeholder="Numero de Telefono" name="mobile_number"
                                 value="{{ old('mobile_number') }}">

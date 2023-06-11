@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class PermissionSeeder extends Seeder
 {
@@ -31,19 +31,19 @@ class PermissionSeeder extends Seeder
             'permission-delete',
         ];
 
-        foreach($permissions as $permission){
+        foreach ($permissions as $permission) {
             Permission::create([
-                'name' => $permission
+                'name' => $permission,
             ]);
         }
 
         // All Permissions
         $permission_saved = Permission::pluck('id')->toArray();
-        
+
         // Give Role Admin All Access
         $role = Role::whereId(1)->first();
         $role->syncPermissions($permission_saved);
-        
+
         // Admin Role Sync Permission
         $user = User::where('role_id', 1)->first();
         $user->assignRole($role->id);

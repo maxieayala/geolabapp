@@ -17,8 +17,8 @@ class PermissionsController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('permission:permission-list|permission-create|permission-edit|permission-delete', ['only' => ['index']]);
-        $this->middleware('permission:permission-create', ['only' => ['create','store']]);
-        $this->middleware('permission:permission-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:permission-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:permission-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:permission-delete', ['only' => ['destroy']]);
     }
 
@@ -32,7 +32,7 @@ class PermissionsController extends Controller
         $permissions = Permission::paginate(10);
 
         return view('permissions.index', [
-            'permissions' => $permissions
+            'permissions' => $permissions,
         ]);
     }
 
@@ -49,7 +49,6 @@ class PermissionsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -58,18 +57,20 @@ class PermissionsController extends Controller
         try {
             $request->validate([
                 'name' => 'required',
-                'guard_name' => 'required'
+                'guard_name' => 'required',
             ]);
-    
+
             Permission::create($request->all());
 
             DB::commit();
-            return redirect()->route('permissions.index')->with('success','Permisos creado con exito.');
+
+            return redirect()->route('permissions.index')->with('success', 'Permisos creado con exito.');
         } catch (\Throwable $th) {
             DB::rollback();
-            return redirect()->route('permissions.add')->with('error',$th->getMessage());
+
+            return redirect()->route('permissions.add')->with('error', $th->getMessage());
         }
-        
+
     }
 
     /**
@@ -99,7 +100,6 @@ class PermissionsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -109,21 +109,22 @@ class PermissionsController extends Controller
         try {
             $request->validate([
                 'name' => 'required',
-                'guard_name' => 'required'
+                'guard_name' => 'required',
             ]);
-            
+
             $permission = Permission::whereId($id)->first();
 
             $permission->name = $request->name;
             $permission->guard_name = $request->guard_name;
             $permission->save();
-            
-            
+
             DB::commit();
-            return redirect()->route('permissions.index')->with('success','Se  actualizo de manera exitosa.');
+
+            return redirect()->route('permissions.index')->with('success', 'Se  actualizo de manera exitosa.');
         } catch (\Throwable $th) {
             DB::rollback();
-            return redirect()->route('permissions.edit',['permission' => $permission])->with('error',$th->getMessage());
+
+            return redirect()->route('permissions.edit', ['permission' => $permission])->with('error', $th->getMessage());
         }
     }
 
@@ -137,14 +138,16 @@ class PermissionsController extends Controller
     {
         DB::beginTransaction();
         try {
-    
+
             Permission::whereId($id)->delete();
-            
+
             DB::commit();
-            return redirect()->route('permissions.index')->with('success','El registro fué borrado');
+
+            return redirect()->route('permissions.index')->with('success', 'El registro fué borrado');
         } catch (\Throwable $th) {
             DB::rollback();
-            return redirect()->route('permissions.index')->with('error',$th->getMessage());
+
+            return redirect()->route('permissions.index')->with('error', $th->getMessage());
         }
     }
 }

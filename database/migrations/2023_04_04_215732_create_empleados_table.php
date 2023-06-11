@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('segundo_apellido');
             $table->string('cedula');
             $table->text('image')->nullable();
-            $table->string('email',100);
+            $table->string('email', 100);
             $table->bigInteger('telefono');
             $table->string('direccion');
             $table->string('genero');
