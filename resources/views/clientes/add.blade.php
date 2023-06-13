@@ -122,7 +122,8 @@
                 </div>
                 </form>
 
-        </div>
+{{-- **fin de  form** --}}
+            </div>
 
     </div>
 

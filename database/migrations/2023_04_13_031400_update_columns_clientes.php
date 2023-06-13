@@ -15,10 +15,9 @@ return new class extends Migration
     {
         Schema::table('clientes', function ($table) {
 
-            $table->string('email',100)->nullable()->change();
+            $table->string('email', 100)->nullable()->change();
             $table->bigInteger('telefono')->nullable()->change();
-            $table->string('direccion')->nullable()->change();  
-
+            $table->string('direccion')->nullable()->change();
 
         });
     }

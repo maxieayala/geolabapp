@@ -45,3 +45,7 @@
 
     </div>
 @endsection
+
+{{-- @php
+    phpinfo();
+@endphp --}}

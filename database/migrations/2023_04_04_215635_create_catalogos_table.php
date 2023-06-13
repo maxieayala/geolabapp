@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('catalogos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer("id_padre")->nullable();
-            $table->string("nombre")->nullable();
-            $table->string("descripcion")->nullable();
+            $table->integer('id_padre')->nullable();
+            $table->string('nombre')->nullable();
+            $table->string('descripcion')->nullable();
             $table->timestamps();
         });
     }

@@ -5,10 +5,11 @@ namespace App\Models;
 use App\Models\Opciones\Catalogo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Proyecto;
+
 class cliente extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'nombre',
         'email',
@@ -18,11 +19,11 @@ class cliente extends Model
         'direccion',
 
     ];
+
     public function gettipocliente()
     {
-        return  Catalogo::where('id', $this->tipocliente_id)->pluck('nombre')->first();
+        return Catalogo::where('id', $this->tipocliente_id)->pluck('nombre')->first();
     }
-
 
     // customerOrders
     public function Proyecto()

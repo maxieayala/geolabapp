@@ -13,12 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('estudios', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('descripcion');
-            $table->integer('tipo_id');
+        Schema::create('sondeos', function (Blueprint $table) {
+            $table->id();
+            $table->double('coordenada_x');
+            $table->double('coordenada_y');
+            $table->string('estacion', 8)->nullable();
+            $table->string('banda', 5)->nullable();
+            $table->unsignedBigInteger('tipo_sondeo_id')->nullable();
             $table->unsignedBigInteger('proyecto_id');
             $table->foreign('proyecto_id')->references('id')->on('proyectos');
+            $table->date('fecha')->nullable();
+            $table->string('metodos_perforacion')->nullable();
+            $table->string('instrumentacion')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('estudio');
+        Schema::dropIfExists('sondeos');
     }
 };

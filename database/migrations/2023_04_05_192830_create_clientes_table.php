@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('clientes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('Nombre');
-            $table->string('email',100);
+            $table->string('email', 100);
             $table->bigInteger('telefono');
-            $table->string('direccion');  
-            $table->timestamps();      
+            $table->string('direccion');
+            $table->timestamps();
         });
     }
 

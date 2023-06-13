@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use App\Rules\MatchOldPassword;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Http;
 
 class HomeController extends Controller
 {
@@ -33,8 +32,10 @@ class HomeController extends Controller
 
     /**
      * User Profile
+     *
      * @param Nill
      * @return View Profile
+     *
      * @author Shani Singh
      */
     public function getProfile()
@@ -44,45 +45,50 @@ class HomeController extends Controller
 
     /**
      * Update Profile
+     *
      * @param $profileData
-     * @return Boolean With Success Message
+     * @return bool With Success Message
+     *
      * @author Shani Singh
      */
     public function updateProfile(Request $request)
     {
-        #Validations
+        //Validations
         $request->validate([
-            'first_name'    => 'required',
-            'last_name'     => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
             'mobile_number' => 'required|numeric|digits:10',
         ]);
 
         try {
             DB::beginTransaction();
-            
-            #Update Profile Data
+
+            //Update Profile Data
             User::whereId(auth()->user()->id)->update([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
                 'mobile_number' => $request->mobile_number,
             ]);
 
-            #Commit Transaction
+            //Commit Transaction
             DB::commit();
 
-            #Return To Profile page with success
+            //Return To Profile page with success
             return back()->with('success', 'Se  actualizo de manera exitosa');
-            
+
         } catch (\Throwable $th) {
             DB::rollBack();
+
             return back()->with('error', $th->getMessage());
         }
     }
 
     /**
      * Change Password
+     *
      * @param Old Password, New Password, Confirm New Password
-     * @return Boolean With Success Message
+     * @return bool With Success Message
+     *
      * @author Shani Singh
      */
     public function changePassword(Request $request)
@@ -96,17 +102,18 @@ class HomeController extends Controller
         try {
             DB::beginTransaction();
 
-            #Update Password
-            User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
-            
-            #Commit Transaction
+            //Update Password
+            User::find(auth()->user()->id)->update(['password' => Hash::make($request->new_password)]);
+
+            //Commit Transaction
             DB::commit();
 
-            #Return To Profile page with success
+            //Return To Profile page with success
             return back()->with('success', 'Se realizo el cambio de Contraseña');
-            
+
         } catch (\Throwable $th) {
             DB::rollBack();
+
             return back()->with('error', $th->getMessage());
         }
     }
