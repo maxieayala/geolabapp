@@ -60,8 +60,8 @@
                 </div>
 
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-success btn-cliente float-right mb-3">Update</button>
-                    <a class="btn btn-primary float-right mr-3 mb-3" href="{{ route('clientes') }}">Cancel</a>
+                    <button type="submit" class="btn btn-success btn-cliente float-right mb-3">Actualizar</button>
+                    <a class="btn btn-primary float-right mr-3 mb-3" href="{{ route('clientes') }}">Cancelar</a>
                 </div>
             </form>
         </div>

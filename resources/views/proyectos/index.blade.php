@@ -66,7 +66,7 @@
                 <a href="{{ route('proyectos.show', ['proyecto' => $proyecto->id]) }}"
                   class="btn btn-primary m-2">
                   <i class="fas fa-eye"></i>
-                </a>
+                </a> 
                 <a href="{{ route('proyecto_edit', ['proyecto' => $proyecto->id]) }}"
                   class="btn btn-primary m-2">
                   <i class="fa fa-pen"></i>
