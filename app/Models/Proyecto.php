@@ -26,4 +26,10 @@ class Proyecto extends Model
     {
         return $this->belongsTo(Cliente::class);
     }
+
+    public function proyectoDetalleAdjuntos()
+    {
+        return $this->hasMany(ProyectoDetalleAdjunto::class);
+    }
+
 }
