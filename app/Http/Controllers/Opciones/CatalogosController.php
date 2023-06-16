@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Opciones;
 use App\Http\Controllers\Controller;
 use App\Models\opciones\Catalogo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CatalogosController extends Controller
 {
@@ -22,7 +23,7 @@ class CatalogosController extends Controller
     public function index()
     {
         $Catalogos = Catalogo::whereNull('id_padre')->get();
-        return view('Opciones.catalogo.index', compact('Catalogos'));
+        return view('Opciones.catalogos.index', compact('Catalogos'));
     }
 
 
@@ -31,26 +32,38 @@ class CatalogosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function store()
     {
+        $catalogos = Catalogo::all();
+       
+        return view('Opciones.catalogos.add');
     }
 
-    /**
+        /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function add(Request $request)
     {
-        $validatedData = $this->validate($request, [
-            'nombre'      => 'required|min:3|max:255|string',
-            'id_padre' => 'sometimes|nullable|numeric'
-      ]);
+        DB::beginTransaction();
+        try {
+            $request->validate([
+                'nombre' => 'required',
+                'id_padre' => 'sometimes|nullable|numeric',
+                'descripcion' => 'required|min:5|max:255|string',
+            ]);
+    
+            Catalogo::create($request->all());
 
-      Catalogo::create($validatedData);
-
-      return redirect()->route('catalogo.index')->withSuccess('El catalogo se creo exitosamente');
+            DB::commit();
+            return redirect()->route('catalogos.index')->with('success','Catalogo creado con exito');
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return redirect()->route('catalogos.index')->with('error',$th->getMessage());
+        }
+        
     }
 
     /**
@@ -59,9 +72,11 @@ class CatalogosController extends Controller
      * @param  \App\Models\opciones\Catalogo  $catalogo
      * @return \Illuminate\Http\Response
      */
-    public function show(Catalogo $catalogo)   //muestra los catalogos en la tabla
+    public function show($id)   //muestra los catalogos en la tabla
     {
-        
+        $catalogo = Catalogo::findOrFail($id);
+
+        return view('Opciones.catalogos.show', compact('catalogo'));
     }
 
     /**
@@ -70,9 +85,11 @@ class CatalogosController extends Controller
      * @param  \App\Models\opciones\Catalogo  $catalogo
      * @return \Illuminate\Http\Response
      */
-    public function edit(Catalogo $catalogo)
+    public function edit($id) //llamo vista para editar catalogo
     {
-        //
+        $catalogos = Catalogo::whereId($id)->first();
+    
+        return view('Opciones.catalogos.edit' , ['catalogo' => $catalogos]);
     }
 
     /**
@@ -82,21 +99,16 @@ class CatalogosController extends Controller
      * @param  \App\Models\opciones\Catalogo  $catalogo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id) //aca hago actualizacion full
     {
+        $catalogo = Catalogo::findOrFail($id);
 
-        $validatedData = $request->validate([
-            'nombre' => 'required|max:255',
-  
-        ]);
-
-        $item = Catalogo::findOrFail($id); // Buscar el elemento por ID
-        $item->nombre = $validatedData['nombre'];
-  
-        $item->save(); // Guardar los cambios en la base de datos
-
-        // Redirigir al usuario a la misma vista
-        return redirect()->route('catalogo.index', $item->id_padre);
+        $catalogo->nombre = $request->input('nombre');
+        $catalogo->descripcion = $request->input('descripcion');
+        
+        $catalogo->save();
+    
+        return redirect()->route('catalogos.index', $catalogo->id);
     }
 
     /**
@@ -105,24 +117,15 @@ class CatalogosController extends Controller
      * @param  \App\Models\opciones\Catalogo  $catalogo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Catalogo $catalogo)
+    public function eliminar(Request $request, $id)
     {
-        if ($catalogo->children) {
-            foreach ($catalogo->children()->with('posts')->get() as $child) {
-                foreach ($child->posts as $post) {
-                    $post->update(['catalogo_id' => NULL]);
-                }
-            }
-            
-            $catalogo->children()->delete();
-        }
+      $catalogo = Catalogo::whereId($id)->first();
+      $catalogo->delete();
+      return redirect()->route('catalogos.index')->with('success', 'Catalogo eliminado exitosamente');
+    }
 
-        foreach ($catalogo->posts as $post) {
-            $post->update(['catalogo_id' => NULL]);
-        }
-
-        $catalogo->delete();
-
-        return redirect()->route('catalogo.index')->withSuccess('You have successfully deleted a catalogo!');
+    public function export()
+    {
+      return Excel::download(new UsersExport, 'catalogos.xlsx');
     }
 }

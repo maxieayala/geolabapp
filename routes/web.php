@@ -20,15 +20,23 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//catalalogo
-Route::get('/catalogo', [CatalogosController::class, 'index'])->name('catalogo.index');
-Route::post('/catalogoAdd', [CatalogosController::class, 'store'])->name('catalogo.store');
-Route::put('/catalogoupdate', [CatalogosController::class, 'update'])->name('catalogo.update');
+//catalogo
+Route::get('/catalogos', [CatalogosController::class, 'index'])->name('catalogos.index');
+//Rutas para agregar
+Route::post('/catalogos/add', [CatalogosController::class, 'add'])->name('catalogos_add');
+Route::get('/catalogoAdd', [CatalogosController::class, 'store'])->name('catalogosAgregar'); //llama al view
+//Rutas para editar
+Route::post('/catalogos/{id}', [CatalogosController::class, 'update'])->name('catalogos.update'); //llama al view
+Route::get('/catalogos/edit/{catalogo}', [CatalogosController::class, 'edit'])->name('catalogos_edit');
+//Rutas para mostrar
+Route::get('/catalogos/{catalogo}', [CatalogosController::class, 'show'])->name('catalogos.show');
+Route::get('/catalogos/exportar', [CatalogosController::class, 'export'])->name('catalogosExportar');
 
-Route::delete('/catalogo/delete', [CatalogosController::class, 'destroy'])->name('catalogo.destroy');
+Route::delete('/catalogo/delete', [CatalogosController::class, 'destroy'])->name('catalogo.destroy'); 
 //sondeos
 Route::resource('sondeo', SondeoController::class);
 Route::get('/obtenerProyectos/{clienteId}', [SondeoController::class, 'obtenerProyectos'])->name('obtenerProyectos');
+
 
 Route::get('/ObtenerSondeos/{proyectoid}', [SondeoController::class, 'ObtenerSondeos'])->name('ObtenerSondeos');
 

@@ -79,7 +79,7 @@ class ProyectosController extends Controller
   {
     $proyecto = Proyecto::whereId($id)->first();
     $proyecto->delete();
-    return redirect()->route('proyectos')->with('success', 'Proyecto eliminado exitosamente');
+    return redirect()->route('proyectos.index')->with('success', 'Proyecto eliminado exitosamente');
   }
 
   public function update(Request $request, $id)

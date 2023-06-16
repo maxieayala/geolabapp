@@ -11,7 +11,7 @@ class Catalogo extends Model
 
     protected $table = 'catalogos';
 
-    protected $fillable = ['nombre', 'id_padre'];
+    protected $fillable = ['nombre', 'id_padre', 'descripcion'];
 
     public function parent()
     {
