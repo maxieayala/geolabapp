@@ -5,6 +5,8 @@
 
     <div class="container-fluid">
 
+
+
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Agregar Sondeo</h1>
@@ -45,24 +47,29 @@
                             </span>
                         @enderror
                     </div>
-                    <button type="button" class=" d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"
-                        data-target="#SondeoAddModal">
+                    <button id="addSondeoButton"type="button" class=" d-sm-inline-block btn btn-sm btn-primary shadow-sm  "
+                        data-toggle="modal" disabled=true data-target="#SondeoAddModal">
                         Agregar Sondeo
                     </button>
                 </div>
+                <div class="table-responsive">
+                    <table id="sondeos" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Coordenada X</th>
+                                <th>Coordenada Y</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Las filas se agregarán dinámicamente aquí -->
+                        </tbody>
+                    </table>
 
+
+                </div>
             </div>
-            <table id="miGrid" class="table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <!-- Agrega más columnas según tus necesidades -->
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+
 
         </div>
         {{-- @include('sondeos.grafico') --}}
@@ -76,24 +83,6 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            var cliente = $('#cliente')
-                .val(); // Corrección: Agrega el selector '#' para obtener el elemento por su ID
-            $.ajax({
-                url: '/getproyectos/' + cliente,
-                type: "GET",
-                dataType: "json",
-                success: function(data) {
-                    $('#proyecto').empty();
-                    $.each(data, function(id, nombre) {
-                        var option = $('<option></option>').attr('value', id).text(nombre);
-                        $('#proyecto').append(option);
-                    });
-                    $('#proyecto').trigger(
-                        'change'
-                    ); // Agrega esta línea para disparar el evento change del select de proyectos
-                }
-            });
-
 
             $('#cliente').on('change',
                 function() { // Corrección: Agrega el selector '#' para obtener el elemento por su ID
@@ -101,8 +90,9 @@
                     var clienteId = $('#cliente')
                         .val(); // Corrección: Agrega el selector '#' para obtener el elemento por su ID
                     if (clienteId) {
+
                         $.ajax({
-                            url: '/getproyectos/' + clienteId,
+                            url: '/obtenerProyectos/' + clienteId,
                             type: "GET",
                             dataType: "json",
                             success: function(data) {
@@ -115,49 +105,59 @@
                                 $('#proyecto').trigger(
                                     'change'
                                 ); // Agrega esta línea para disparar el evento change del select de proyectos
-
+                                $('#addSondeoButton').prop('disabled',
+                                    false
+                                ); // Agrega esta línea para habilitar el botón de agregar sondeo
                             }
                         });
                     } else {
                         $('#proyecto').empty();
+
+                        $('#addSondeoButton').prop('disabled', true);
                     }
                 });
 
 
             $('#proyecto').on('change',
-                function() { // Corrección: Agrega el selector '#' para obtener el elemento por su ID
+                function() {
+                    var proyectoId = $('#proyecto').val();
+                    document.getElementById('proyecto_id').value = proyectoId;
 
-                    var proyectoId = $('#proyecto')
-                        .val(); // Corrección: Agrega el selector '#' para obtener el elemento por su ID
                     if (proyectoId) {
                         $.ajax({
-                            url: '/getSondeos/' + proyectoId,
+                            url: '/ObtenerSondeos/' + proyectoId,
                             type: "GET",
+
                             dataType: "json",
                             success: function(data) {
-                                $('#miGrid').DataTable({
-                                    data: data,
-                                    columns: [{
-                                            title: 'ID',
-                                            data: 'id'
-                                        },
-                                        {
-                                            title: 'Nombre',
-                                            data: 'nombre'
-                                        },
 
-                                        // Agrega más columnas según tus necesidades
-                                    ]
+                                console.log(data);
+                                var tbody = $('#sondeos tbody');
+                                tbody.empty();
+
+                                // Generar las filas dinámicamente
+                                data.forEach(function(sondeo) {
+                                    var row = '<tr>' +
+                                        '<td>' + sondeo.id + '</td>' +
+                                        '<td>' + sondeo.coordenada_x + '</td>' +
+                                        '<td>' + sondeo.coordenada_y + '</td>' +
+                                        '</tr>';
+
+                                    tbody.append(row);
                                 });
                             }
                         });
                     } else {
-                        $('#proyecto').empty();
+                        $('#sondeos').DataTable().clear();
                     }
                 });
+
 
         });
     </script>
 
+
+
     @include('sondeos.SondeoAddModal')
+
 @endsection

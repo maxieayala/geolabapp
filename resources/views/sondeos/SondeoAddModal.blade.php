@@ -1,10 +1,12 @@
 <div class="modal fade bd-example-modal-lg" id="SondeoAddModal" tabindex="-1" role="dialog"
     aria-labelledby="ModalLabelSondeo" aria-hidden="true">
-    {{-- <input name="Proyecto_id" value="{{ $ttr->id }}" type="hidden"> --}}
+
+    <input type="hidden" name="proyecto_id" id="proyecto_id" value="">
+
     <div class="modal-dialog modal-lg " role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ModalLabelSondeo">¿Estas seguro de salir?</h5>
+                <h5 class="modal-title" id="ModalLabelSondeo">Agregar sondeos y Muestras</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -12,8 +14,9 @@
             <div class="modal-body">
                 <!-- DataTales Example -->
                 <div class="card-body">
-                    <form method="POST" action="{{ route('sondeo.store') }}">
+                    <form method="POST" id="SondeoForm" method="POST">
                         @csrf
+
                         <div class="form-row">
                             <div class="form-group  col-md-3">
                                 <label for="fecha">Fecha</label>
@@ -64,15 +67,59 @@
                     {{-- **************Fin de formulario --}}
                 </div>
                 <div class="modal-footer">
+                    <button type="submit" type="button" class="btn btn-primary">Guardar</button>
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" href="{{ route('logout') }}"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        Salir
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        {{ csrf_field() }}
-                    </form>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        $('#SondeoForm').on('submit', function(e) {
+            e.preventDefault();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            var myformData = new FormData($('#SondeoForm')[0]);
+            $.ajax({
+                url: "/sondeoAdd",
+                type: "POST",
+                data: {
+                    coordenada_x: document.getElementById("coordenada_x").value,
+                    coordenada_y: document.getElementById("coordenada_y").value,
+                    banda: document.getElementById("banda").value,
+                    estacion: document.getElementById("estacion").value,
+                    proyecto_id: document.getElementById("proyecto_id").value,
+                    fecha: document.getElementById("fecha").value
+                },
+                data: myformData,
+                cache: false,
+                processData: false,
+                contentType: false,
+                dataType: "json",
+                success: function(response) {
+                    console.log(response);
+                    $("#SondeoForm").find('input').val('');
+                    $('#SondeoAddModal').modal('hide');
+                    // $('#medicineaddform')[0].reset();
+                    Swal.fire({
+                        position: 'top-mid',
+                        icon: 'success',
+                        title: 'Your work has been saved',
+                        showConfirmButton: false,
+                        timerProgressBar: true,
+                        timer: 1800
+                    });
+                    // table.draw();
+                    location.reload();
+                },
+                error: function(error) {
+                    console.log(error);
+                    alert("Error al guardar");
+                }
+            });
+
+
+        });
+    </script>

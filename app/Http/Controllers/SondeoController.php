@@ -8,7 +8,6 @@ use App\Models\Proyecto;
 use App\Models\Sondeo;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
 
 class SondeoController extends Controller
 {
@@ -22,9 +21,15 @@ class SondeoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $sondeos = Sondeo::all();
+        $search_query = request('search');
+        try {
+
+            $sondeos = Sondeo::getPaginatedData($search_query);
+        } catch (\Throwable $th) {
+            return back()->with('error', 'Hubo un error');
+        }
         $grafico = $this->stackedColumnChart();
 
         return view('sondeos.index', compact('sondeos'));
@@ -33,6 +38,7 @@ class SondeoController extends Controller
     public function create()
     {
         $tiposSondeo = catalogo::where('id_padre', '=', '1')->get();
+        //Mostame los clientes que tengan proyectos activos
         $clientes = Cliente::pluck('Nombre', 'id');
 
         return view('sondeos.add', compact('tiposSondeo', 'clientes'));
@@ -48,25 +54,34 @@ class SondeoController extends Controller
      */
     public function obtenerProyectos($clienteId)
     {
+        // Validate that $clienteId is not null
+        if ($clienteId === null) {
+            throw new \Exception('El cliente ID no puede ser nulo');
+        }
 
-        $proyectos = Proyecto::where('cliente_id', $clienteId)->get()->pluck('nombre', 'id');
+        // Mostrame solo los proyectos que esten activos
+        $proyectos = Proyecto::where('cliente_id', $clienteId)
+            ->where('status', 'Activo')
+            ->get()
+            ->pluck('nombre', 'id');
 
         return response()->json($proyectos);
     }
 
-    public function getSondeos($proyectoId)
+    public function obtenerSondeos($proyectoId)
     {
-        $sondeo = Sondeo::where('proyecto_id', $proyectoId)->get();
 
-        return DataTables::of($sondeo)->make(true)
-            ->addColumn('action', function ($row) {
-                $btn = '<a href="javascript:void(0);" class="btn btn-warning btn-sm editbtn" data-id="'.$row->id.'"><i class="fas fa-edit"></i></a>';
-                $btn = $btn.'&nbsp&nbsp<a href="javascript:void(0);" data-id="'.$row->id.'" class="btn btn-danger btn-sm deletebtn"> <i class="fas fa-trash"></i> </a>';
+        // Validate that $proyectoId is not null
+        if ($proyectoId === null) {
+            throw new \Exception('El proyecto ID no puede ser nulo');
+        }
 
-                return $btn;
-            })
-            ->rawColumns(['action'])
-            ->make(true);
+        $data = Sondeo::query()
+            ->where('proyecto_id', $proyectoId)
+            ->orderBy('id', 'DESC')
+            ->get();
+
+        return $data;
     }
 
     public function store(Request $request)
@@ -74,16 +89,20 @@ class SondeoController extends Controller
         $request->validate([
             'coordenada_x' => 'required',
             'coordenada_y' => 'required',
-            'tipo_sondeo_id' => 'required',
             'proyecto_id' => 'required',
             'fecha' => 'required',
-            'metodos_perforacion' => 'required',
-            'instrumentacion' => 'required',
         ]);
 
-        Sondeo::create($request->all());
+        $sondeo = new Sondeo;
+        $sondeo->coordenada_x = $request->coordenada_x;
+        $sondeo->coordenada_y = $request->coordenada_y;
+        $sondeo->proyecto_id = $request->proyecto_id;
+        $sondeo->fecha = $request->fecha;
+        $sondeo->tipo_sondeo_id = $request->tipo_sondeo_id;
 
-        return redirect()->route('sondeos.index')->with('success', 'Sondeo created successfully.');
+        $sondeo->save();
+
+        return response()->json($sondeo);
     }
 
     public function show(Sondeo $sondeo)

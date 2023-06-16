@@ -28,9 +28,12 @@ Route::put('/catalogoupdate', [CatalogosController::class, 'update'])->name('cat
 Route::delete('/catalogo/delete', [CatalogosController::class, 'destroy'])->name('catalogo.destroy');
 //sondeos
 Route::resource('sondeo', SondeoController::class);
-Route::get('/getproyectos/{clienteId}', [SondeoController::class, 'obtenerProyectos'])->name('sondeo.getproyectos');
+Route::get('/obtenerProyectos/{clienteId}', [SondeoController::class, 'obtenerProyectos'])->name('obtenerProyectos');
 
-Route::get('/getSondeos/{proyectoid}', [SondeoController::class, 'getSondeos'])->name('sondeo.getSondeos');
+Route::get('/ObtenerSondeos/{proyectoid}', [SondeoController::class, 'ObtenerSondeos'])->name('ObtenerSondeos');
+
+Route::post('/sondeoAdd', [SondeoController::class, 'store']);
+
 //Muestras
 Route::get('/muestras', [MuestrasController::class, 'index'])->name('muestras');
 Route::get('/album', [MuestrasController::class, 'index'])->name('albumfotografico');

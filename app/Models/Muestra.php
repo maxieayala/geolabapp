@@ -12,11 +12,16 @@ class Muestra extends Model
     protected $table = 'muestras';
 
     protected $fillable = [
-        'sondeo',
+        'sondeo_id',
         'desde',
         'hasta',
         'descripcionvisual',
     ];
+
+    public function sondeo()
+    {
+        return $this->belongsTo(sondeo::class);
+    }
 
     /**
      * The accessors to append to the model's array form.

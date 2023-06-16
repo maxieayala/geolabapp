@@ -31,8 +31,8 @@
                     <div class="py-2 flex">
                         <div class="input-group mb-3">
                             <input type="search" name="search" id="search" value="{{ request()->input('search') }}"
-                                class="form-control small" placeholder="Buscar por cliente,proyecto"
-                                aria-label="Search" aria-describedby="basic-addon2">
+                                class="form-control small" placeholder="Buscar por cliente,proyecto" aria-label="Search"
+                                aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-primary" type='submit'>
                                     <i class="fas fa-search fa-sm"></i>
@@ -51,9 +51,9 @@
                             <tr>
                                 <th width="5%"><i class="fa fa-id-badge" aria-hidden="true"></i> Cliente</th>
                                 <th width="5%">Nombre Proyecto</th>
-                                <th width="5%"><i class="fa fa-globe" aria-hidden="true"></i>Coordenada X</th>
-                                <th width="5%"><i class="fa fa-globe" aria-hidden="true"></i>Coordenada Y</th>
-                                <th width="5%">Total de Muestras</th>
+                                <th width="2%"><i class="fa fa-globe" aria-hidden="true"></i>Coordenada X</th>
+                                <th width="2%"><i class="fa fa-globe" aria-hidden="true"></i>Coordenada Y</th>
+                                <th width="2%">Total de Muestras</th>
 
                                 <th width="3%">Opciones</th>
                             </tr>
@@ -62,22 +62,26 @@
                             @forelse ($sondeos as $sondeo)
                                 <tr>
                                     <td>{{ $sondeo->nombre_cliente }}</td>
-                                    <td>{{ $sondeo->nombre }}</td>
-                                    <td>{{ $sondeo->status }}</td>
+                                    <td>{{ $sondeo->nombre_proyecto }}</td>
+
+
+                                    <td>{{ $sondeo->coordenada_x }}</td>
+                                    <td>{{ $sondeo->coordenada_y }}</td>
+                                    <td>{{ $sondeo->ObtenerTotalMuestras() }}</td>
 
                                     <td style="display: flex">
-                                        <a href="{{ route('sondeo.show', ['proyecto' => $sondeo->id]) }}"
+                                        <a href="{{ route('sondeo.show', ['sondeo' => $sondeo->id]) }}"
                                             class="btn btn-primary m-2">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="{{ route('sondeo.update', ['proyecto' => $sondeo->id]) }}"
+                                        <a href="{{ route('sondeo.update', ['sondeo' => $sondeo->id]) }}"
                                             class="btn btn-primary m-2">
                                             <i class="fa fa-pen"></i>
                                         </a>
-                                        <a href="{{ route('sondeo.destroy', $sondeo->id) }}"
-                                            class="btn btn-danger m-2" onclick="
+                                        <a href="{{ route('sondeo.destroy', $sondeo->id) }}" class="btn btn-danger m-2"
+                                            onclick="
                           event.preventDefault();
-                          if (confirm('¿Estás seguro de eliminar el proyecto?')) {
+                          if (confirm('¿Estás seguro de eliminar el sondeo?')) {
                             document.getElementById('delete-form-{{ $sondeo->id }}').submit();
                           }
                         ">
