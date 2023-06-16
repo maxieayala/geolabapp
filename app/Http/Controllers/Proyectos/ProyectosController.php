@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Proyecto;
 use App\Models\Cliente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProyectosController extends Controller
 {
@@ -39,6 +40,17 @@ class ProyectosController extends Controller
 
   public function store(Request $request)
   {
+    $validator = Validator::make($request->all(), [
+      'cliente_id' => 'required',
+      'telefono_contacto' => 'numeric',
+      'fecha_inicio' => 'date',
+      'fecha_fin' => 'date',
+    ]);
+
+    if ($validator->fails()) {
+      return redirect()->back()->withErrors($validator)->withInput();
+    }
+
     $proyecto = Proyecto::create([
       'nombre' => $request->input('nombre'),
       'direccion' => $request->input('direccion'),

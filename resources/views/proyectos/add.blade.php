@@ -85,7 +85,7 @@
           <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
             <span style="color:red;">*</span>Fecha de inicio</label>
             <input type="date" class="form-control form-control-proyecto @error('Fecha_inicio') is-invalid @enderror" placeholder="Ingresar fecha inicio" name="fecha_inicio" id="fecha_inicio" value="{{ old('fecha_inicio') }}">
-            @error('Fecha_inicio')
+            @error('fecha_inicio')
             <span class="text-danger">{{ $message }}</span>
             @enderror
           </div>
@@ -94,7 +94,7 @@
           <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
             <span style="color:red;">*</span>Fecha de culminacion</label>
             <input type="date" class="form-control form-control-proyecto @error('Fecha_fin') is-invalid @enderror" placeholder="Ingresar fecha final" name="fecha_fin" id="fecha_fin" value="{{ old('fecha_fin') }}">
-            @error('Fecha_fin')
+            @error('fecha_fin')
             <span class="text-danger">{{ $message }}</span>
             @enderror
           </div>
