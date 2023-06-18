@@ -19,13 +19,12 @@ class CatalogosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function index()
     {
         $Catalogos = Catalogo::whereNull('id_padre')->get();
+
         return view('Opciones.catalogos.index', compact('Catalogos'));
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -35,14 +34,13 @@ class CatalogosController extends Controller
     public function store()
     {
         $catalogos = Catalogo::all();
-       
+
         return view('Opciones.catalogos.add');
     }
 
-        /**
+    /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function add(Request $request)
@@ -54,16 +52,17 @@ class CatalogosController extends Controller
                 'id_padre' => 'sometimes|nullable|numeric',
                 'descripcion' => 'required|min:5|max:255|string',
             ]);
-    
+
             Catalogo::create($request->all());
 
             DB::commit();
-            return redirect()->route('catalogos.index')->with('success','Catalogo creado con exito');
+
+            return redirect()->route('catalogos.index')->with('success', 'Catalogo creado con exito');
         } catch (\Throwable $th) {
             DB::rollback();
-            return redirect()->route('catalogos.index')->with('error',$th->getMessage());
+
+            return redirect()->route('catalogos.index')->with('error', $th->getMessage());
         }
-        
     }
 
     /**
@@ -88,14 +87,13 @@ class CatalogosController extends Controller
     public function edit($id) //llamo vista para editar catalogo
     {
         $catalogos = Catalogo::whereId($id)->first();
-    
-        return view('Opciones.catalogos.edit' , ['catalogo' => $catalogos]);
+
+        return view('Opciones.catalogos.edit', ['catalogo' => $catalogos]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\opciones\Catalogo  $catalogo
      * @return \Illuminate\Http\Response
      */
@@ -105,9 +103,9 @@ class CatalogosController extends Controller
 
         $catalogo->nombre = $request->input('nombre');
         $catalogo->descripcion = $request->input('descripcion');
-        
+
         $catalogo->save();
-    
+
         return redirect()->route('catalogos.index', $catalogo->id);
     }
 
@@ -117,15 +115,16 @@ class CatalogosController extends Controller
      * @param  \App\Models\opciones\Catalogo  $catalogo
      * @return \Illuminate\Http\Response
      */
-    public function eliminar(Request $request, $id)
+    public function eliminar($id)
     {
-      $catalogo = Catalogo::whereId($id)->first();
-      $catalogo->delete();
-      return redirect()->route('catalogos.index')->with('success', 'Catalogo eliminado exitosamente');
+        $catalogo = Catalogo::whereId($id)->first();
+        $catalogo->delete();
+
+        return redirect()->route('catalogos.index')->with('success', 'Catalogo eliminado exitosamente');
     }
 
     public function export()
     {
-      return Excel::download(new UsersExport, 'catalogos.xlsx');
+        return Excel::download(new UsersExport, 'catalogos.xlsx');
     }
 }

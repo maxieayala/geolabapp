@@ -79,8 +79,8 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#taTpDropDown" aria-expanded="true"
-            aria-controls="taTpDropDown">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#taTpDropDown"
+            aria-expanded="true" aria-controls="taTpDropDown">
             <i class="fas fa-user-alt"></i>
             <span>Administracion de Usuario</span>
         </a>
@@ -98,35 +98,35 @@
     <hr class="sidebar-divider">
 
     @hasrole('Admin')
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Admin Section
-    </div>
-
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
-            aria-controls="collapsePages">
-            <i class="fas fa-fw fa-folder"></i>
-            <span>Masters</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Roles & Permisos</h6>
-                <a class="collapse-item" href="{{ route('roles.index') }}">Roles</a>
-                <a class="collapse-item" href="{{ route('permissions.index') }}">Permisos</a>
-            </div>
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Admin Section
         </div>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Opciones de sistema</h6>
-                <a class="collapse-item" href="{{ route('catalogo.index') }}">Catalogo</a>
-            </div>
-        </div>
-    </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider d-none d-md-block">
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                aria-expanded="true" aria-controls="collapsePages">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Masters</span>
+            </a>
+            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Roles & Permisos</h6>
+                    <a class="collapse-item" href="{{ route('roles.index') }}">Roles</a>
+                    <a class="collapse-item" href="{{ route('permissions.index') }}">Permisos</a>
+                </div>
+            </div>
+            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Opciones de sistema</h6>
+                    <a class="collapse-item" href="{{ route('catalogos.index') }}">Catalogo</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
     @endhasrole
     <li class="nav-item">
         <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">

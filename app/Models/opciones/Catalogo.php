@@ -22,5 +22,4 @@ class Catalogo extends Model
     {
         return $this->hasMany(Catalogo::class, 'id_padre');
     }
-
 }

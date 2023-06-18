@@ -4,7 +4,7 @@
         <button type="button" class="close" data-dismiss="alert">
             <i class="fa fa-times"></i>
         </button>
-        <strong>Success !</strong> {{ session('success') }}
+        <strong>Guardado !</strong> {{ session('success') }}
     </div>
 @endif
 
@@ -13,6 +13,6 @@
         <button type="button" class="close" data-dismiss="alert">
             <i class="fa fa-times"></i>
         </button>
-        <strong>Error !</strong> {{ session('error') }}
+        <strong>Hubo un Error: !</strong> {{ session('error') }}
     </div>
 @endif

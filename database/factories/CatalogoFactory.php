@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\catalogo>
@@ -18,10 +17,10 @@ class CatalogoFactory extends Factory
     public function definition()
     {
         return [
-            'id'=>$this->faker->id,
-            'id_padre'=>$this->faker->id,
-            'nombre'=>$this->faker->name,
-            'descripcion'=>$this->faker->random_bytes
+            'id' => $this->faker->id,
+            'id_padre' => $this->faker->id,
+            'nombre' => $this->faker->name,
+            'descripcion' => $this->faker->random_bytes,
         ];
     }
 }

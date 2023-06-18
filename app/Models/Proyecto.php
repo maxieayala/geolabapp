@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Cliente;
 
 class Proyecto extends Model
 {
@@ -31,5 +30,4 @@ class Proyecto extends Model
     {
         return $this->hasMany(ProyectoDetalleAdjunto::class);
     }
-
 }

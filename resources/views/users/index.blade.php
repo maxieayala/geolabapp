@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <a href="{{ route('users.create') }}" class="btn btn-sm btn-primary">
-                         <i class="fas fa-plus"></i> Agregar
+                        <i class="fas fa-plus"></i> Agregar
                     </a>
                 </div>
                 <div class="col-md-6">
@@ -53,6 +53,7 @@
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->mobile_number }}</td>
                                     <td>{{ $user->roles ? $user->roles->pluck('name')->first() : 'N/A' }}</td>
+
                                     <td>
                                         @if ($user->status == 0)
                                             <span class="badge badge-danger">Activo</span>

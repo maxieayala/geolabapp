@@ -32,11 +32,11 @@ Route::get('/catalogos/edit/{catalogo}', [CatalogosController::class, 'edit'])->
 Route::get('/catalogos/{catalogo}', [CatalogosController::class, 'show'])->name('catalogos.show');
 Route::get('/catalogos/exportar', [CatalogosController::class, 'export'])->name('catalogosExportar');
 
-Route::delete('/catalogo/delete', [CatalogosController::class, 'destroy'])->name('catalogo.destroy'); 
+Route::delete('/catalogos/eliminar/{catalogo}', [CatalogosController::class, 'eliminar'])->name('catalogos.destroy');
+
 //sondeos
 Route::resource('sondeo', SondeoController::class);
 Route::get('/obtenerProyectos/{clienteId}', [SondeoController::class, 'obtenerProyectos'])->name('obtenerProyectos');
-
 
 Route::get('/ObtenerSondeos/{proyectoid}', [SondeoController::class, 'ObtenerSondeos'])->name('ObtenerSondeos');
 
