@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Models\Proyecto;
+use App\Models\Muestra;
+use App\Models\Sondeo;
 use App\Models\User;
 use App\Rules\MatchOldPassword;
 use Illuminate\Http\Request;
@@ -27,7 +31,24 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // $usersCount = Muestra::where('status', 'active')->count();
+        $total_proyectos = Proyecto::count();
+        $total_muestras = Muestra::count();
+
+        //    $sondeosPorMes = Sondeo::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
+        //         ->whereYear('created_at', date('Y'))
+        //         ->groupBy(DB::raw("month_name"))
+        //         ->orderBy('id', 'ASC')
+        //         ->pluck('count', 'month_name');
+
+        //     $labels = $sondeosPorMes->keys();
+        //     $data = $sondeosPorMes->values();
+        $sondeosPorMes = DB::table('sondeos')
+            ->select(DB::raw('MONTHNAME(fecha) as mes, COUNT(*) as total'))
+            ->groupBy('mes')
+            ->get();
+
+        return view('home', compact('total_proyectos', 'total_muestras', 'sondeosPorMes'));
     }
 
     /**
@@ -75,7 +96,6 @@ class HomeController extends Controller
 
             //Return To Profile page with success
             return back()->with('success', 'Se  actualizo de manera exitosa');
-
         } catch (\Throwable $th) {
             DB::rollBack();
 
@@ -110,7 +130,6 @@ class HomeController extends Controller
 
             //Return To Profile page with success
             return back()->with('success', 'Se realizo el cambio de Contraseña');
-
         } catch (\Throwable $th) {
             DB::rollBack();
 
