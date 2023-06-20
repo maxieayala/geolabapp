@@ -70,9 +70,9 @@
                                     <td>{{ $sondeo->ObtenerTotalMuestras() }}</td>
 
                                     <td style="display: flex">
-                                        <a href="{{ route('sondeo.show', ['sondeo' => $sondeo->id]) }}"
+                                        <a id="Vermapa" data-toggle="modal" data-target="#vermapaModal"
                                             class="btn btn-primary m-2">
-                                            <i class="fas fa-eye"></i>
+                                            <i class="fas fa-map"></i>
                                         </a>
                                         <a href="{{ route('sondeo.update', ['sondeo' => $sondeo->id]) }}"
                                             class="btn btn-primary m-2">
@@ -110,5 +110,11 @@
         </div>
 
     </div>
+
+@endsection
+
+@section('scripts')
+
+    @include('sondeos.mapasondeo')
 
 @endsection
