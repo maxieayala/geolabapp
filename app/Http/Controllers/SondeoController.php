@@ -39,7 +39,10 @@ class SondeoController extends Controller
     {
         $tiposSondeo = catalogo::where('id_padre', '=', '1')->get();
         //Mostame los clientes que tengan proyectos activos
-        $clientes = Cliente::pluck('Nombre', 'id');
+
+        $clientes = Cliente::whereHas('Proyecto', function ($query) {
+            $query->where('status', '=', 'Activo');
+        })->pluck('Nombre', 'id');
 
         return view('sondeos.add', compact('tiposSondeo', 'clientes'));
     }
