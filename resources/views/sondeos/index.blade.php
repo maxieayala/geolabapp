@@ -103,7 +103,7 @@
 
                         </tbody>
                     </table>
-                    {{-- {{ $sondeos->links() }} --}}
+                    {{ $sondeos->links() }}
 
                 </div>
             </div>

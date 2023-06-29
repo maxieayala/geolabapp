@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
+use App\Models\Muestra;
 use App\Models\Opciones\Catalogo;
 use App\Models\Proyecto;
 use App\Models\Sondeo;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SondeoController extends Controller
 {
@@ -30,6 +32,7 @@ class SondeoController extends Controller
         } catch (\Throwable $th) {
             return back()->with('error', 'Hubo un error');
         }
+
         $grafico = $this->stackedColumnChart();
 
         return view('sondeos.index', compact('sondeos'));
@@ -89,6 +92,7 @@ class SondeoController extends Controller
 
     public function store(Request $request)
     {
+        // Validar los datos del formulario
         $request->validate([
             'coordenada_x' => 'required',
             'coordenada_y' => 'required',
@@ -96,16 +100,44 @@ class SondeoController extends Controller
             'fecha' => 'required',
         ]);
 
-        $sondeo = new Sondeo;
-        $sondeo->coordenada_x = $request->coordenada_x;
-        $sondeo->coordenada_y = $request->coordenada_y;
-        $sondeo->proyecto_id = $request->proyecto_id;
-        $sondeo->fecha = $request->fecha;
-        $sondeo->tipo_sondeo_id = $request->tipo_sondeo_id;
+        // Iniciar la transacción en la base de datos
+        DB::beginTransaction();
 
-        $sondeo->save();
+        try {
+            // Crear el registro de sondeo
+            $sondeo = Sondeo::create([
+                'nombre' => $request->nombre,
+                'coordenada_x' => $request->coordenada_x,
+                'coordenada_y' => $request->coordenada_y,
+                'proyecto_id' => $request->proyecto_id,
+                'fecha' => $request->fecha,
+                'tipo_sondeo_id' => 1,
+                'banda' => $request->banda,
+            ]);
 
-        return response()->json($sondeo);
+            // Insertar las muestras en la tabla de muestras
+            for ($i = 0; $i < count($request->muestras); $i++) {
+                Muestra::create([
+                    'sondeo_id' => $sondeo->id,
+                    'profundidad_inicio' => $request->profundidad_inicio[$i],
+                    'profundidad_fin' => $request->profundidad_fin[$i],
+                    'descripcion' => $request->descripcion[$i],
+                    // Otros campos necesarios para la tabla de muestras
+                ]);
+            }
+
+            // Confirmar la transacción
+            DB::commit();
+
+            // Redireccionar o mostrar un mensaje de éxito
+            return redirect()->back()->with('success', 'Sondeo creado correctamente');
+        } catch (\Exception $e) {
+            // Revertir la transacción
+            DB::rollBack();
+
+            // Redireccionar o mostrar un mensaje de error
+            return redirect()->back()->with('error', 'Hubo un error al crear el sondeo');
+        }
     }
 
     public function show(Sondeo $sondeo)

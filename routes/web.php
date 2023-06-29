@@ -21,9 +21,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/humedades', 'common.UnderCountruction')->name('test_Humedades');
-Route::view('/testGranulometrico', 'common.UnderCountruction')->name('test_Granulometrico');
-Route::view('/testtamizado', 'common.UnderCountruction')->name('test_tamizado');
+Route::view('/humedades', 'common.UnderConstruction')->name('test_Humedades');
+Route::view('/testGranulometrico', 'common.UnderConstruction')->name('test_Granulometrico');
+Route::view('/testtamizado', 'common.UnderConstruction')->name('test_tamizado');
 //catalogo
 Route::get('/catalogos', [CatalogosController::class, 'index'])->name('catalogos.index');
 //Rutas para agregar

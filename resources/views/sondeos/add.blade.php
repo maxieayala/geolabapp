@@ -13,9 +13,13 @@
             <a href="{{ route('home') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                     class="fas fa-arrow-left fa-sm text-white-50"></i> Regresar</a>
         </div>
+        {{-- Alert Messages --}}
+        @include('common.alert')
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Sondeos Registrados</h5>
+                <div id="notificacion-alerta" class="" role="alert">
+                </div>
 
                 <div class="row">
                     <div class="col-md-4 mb-3 mt-3 mb-sm-0">
@@ -52,22 +56,29 @@
                         Agregar Sondeo
                     </button>
                 </div>
-                <div class="table-responsive">
-                    <table id="sondeos" class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Coordenada X</th>
-                                <th>Coordenada Y</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Las filas se agregarán dinámicamente aquí -->
-                        </tbody>
-                    </table>
 
+
+                <div class="mt-3 mb-3">
+                    <div class="table-responsive ">
+                        <table id="sondeos" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Banda</th>
+                                    <th>Coordenada X</th>
+                                    <th>Coordenada Y</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Las filas se agregarán dinámicamente aquí -->
+                            </tbody>
+                        </table>
+
+
+                    </div>
 
                 </div>
+
+
             </div>
 
 
@@ -81,78 +92,89 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('admin/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-
-            $('#cliente').on('change',
-                function() { // Corrección: Agrega el selector '#' para obtener el elemento por su ID
-
-                    var clienteId = $('#cliente')
-                        .val(); // Corrección: Agrega el selector '#' para obtener el elemento por su ID
-                    if (clienteId) {
-
-                        $.ajax({
-                            url: '/obtenerProyectos/' + clienteId,
-                            type: "GET",
-                            dataType: "json",
-                            success: function(data) {
-                                $('#proyecto').empty();
-                                $.each(data, function(id, nombre) {
-                                    var option = $('<option></option>').attr('value', id)
-                                        .text(nombre);
-                                    $('#proyecto').append(option);
-                                });
-                                $('#proyecto').trigger(
-                                    'change'
-                                ); // Agrega esta línea para disparar el evento change del select de proyectos
-                                $('#addSondeoButton').prop('disabled',
-                                    false
-                                ); // Agrega esta línea para habilitar el botón de agregar sondeo
-                            }
-                        });
-                    } else {
-                        $('#proyecto').empty();
-
-                        $('#addSondeoButton').prop('disabled', true);
-                    }
-                });
+            $('#sondeos').DataTable({
+                "paging": false,
+                "searching": false,
+            });
 
 
-            $('#proyecto').on('change',
-                function() {
-                    var proyectoId = $('#proyecto').val();
-                    document.getElementById('proyecto_id').value = proyectoId;
+            $(document).ready(function() {
 
-                    if (proyectoId) {
-                        $.ajax({
-                            url: '/ObtenerSondeos/' + proyectoId,
-                            type: "GET",
+                $('#cliente').on('change',
+                    function() { // Corrección: Agrega el selector '#' para obtener el elemento por su ID
 
-                            dataType: "json",
-                            success: function(data) {
+                        var clienteId = $('#cliente')
+                            .val(); // Corrección: Agrega el selector '#' para obtener el elemento por su ID
+                        if (clienteId) {
 
-                                console.log(data);
-                                var tbody = $('#sondeos tbody');
-                                tbody.empty();
+                            $.ajax({
+                                url: '/obtenerProyectos/' + clienteId,
+                                type: "GET",
+                                dataType: "json",
+                                success: function(data) {
+                                    $('#proyecto').empty();
+                                    $.each(data, function(id, nombre) {
+                                        var option = $('<option></option>').attr(
+                                                'value', id)
+                                            .text(nombre);
+                                        $('#proyecto').append(option);
+                                    });
+                                    $('#proyecto').trigger(
+                                        'change'
+                                    ); // Agrega esta línea para disparar el evento change del select de proyectos
+                                    $('#addSondeoButton').prop('disabled',
+                                        false
+                                    ); // Agrega esta línea para habilitar el botón de agregar sondeo
+                                }
+                            });
+                        } else {
+                            $('#proyecto').empty();
 
-                                // Generar las filas dinámicamente
-                                data.forEach(function(sondeo) {
-                                    var row = '<tr>' +
-                                        '<td>' + sondeo.id + '</td>' +
-                                        '<td>' + sondeo.coordenada_x + '</td>' +
-                                        '<td>' + sondeo.coordenada_y + '</td>' +
-                                        '</tr>';
-
-                                    tbody.append(row);
-                                });
-                            }
-                        });
-                    } else {
-                        $('#sondeos').DataTable().clear();
-                    }
-                });
+                            $('#addSondeoButton').prop('disabled', true);
+                        }
+                    });
 
 
+                $('#proyecto').on('change',
+                    function() {
+                        var proyectoId = $('#proyecto').val();
+                        document.getElementById('proyecto_id').value = proyectoId;
+
+                        if (proyectoId) {
+                            $.ajax({
+                                url: '/ObtenerSondeos/' + proyectoId,
+                                type: "GET",
+
+                                dataType: "json",
+                                success: function(data) {
+
+                                    console.log(data);
+                                    var tbody = $('#sondeos tbody');
+                                    tbody.empty();
+
+                                    // Generar las filas dinámicamente
+                                    data.forEach(function(sondeo) {
+                                        var row = '<tr>' +
+                                            '<td>' + sondeo.banda + '</td>' +
+                                            '<td>' + sondeo.coordenada_x + '</td>' +
+                                            '<td>' + sondeo.coordenada_y + '</td>' +
+                                            '</tr>';
+
+                                        tbody.append(row);
+                                    });
+                                }
+                            });
+                        } else {
+                            $('#sondeos').DataTable().clear();
+                        }
+                    });
+
+
+            });
         });
     </script>
 
