@@ -41,9 +41,9 @@
         <div id="taTpDropDownLaboratorio" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Muestras</h6>
-                <a class="collapse-item" href="{{ route('muestras') }}">Humedades</a>
-                <a class="collapse-item" href="{{ route('albumfotografico') }}">Granulometria</a>
-                <a class="collapse-item" href="{{ route('albumfotografico') }}">Tamizado Malla 40</a>
+                <a class="collapse-item" href="{{ route('test_Humedades') }}">Humedades</a>
+                <a class="collapse-item" href="{{ route('test_Granulometrico') }}">Granulometria</a>
+                <a class="collapse-item" href="{{ route('test_tamizado') }}">Tamizado Malla 40</a>
             </div>
         </div>
     </li>
@@ -129,13 +129,13 @@
         <hr class="sidebar-divider d-none d-md-block">
     @endhasrole
     <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
+        <a class="nav-link" href="#" data-toggle="modal" data-target="#aboutModal">
             <i class="fas fa-info"></i>
             <span>Acerca de</span>
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
+        <a class="nav-link" href="#" data-toggle="modal" data-target="#helpModal">
             <i class="fa fa-info-circle" aria-hidden="true"></i>
             <span>Ayuda</span>
         </a>

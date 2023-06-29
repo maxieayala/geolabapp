@@ -20,6 +20,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::view('/humedades', 'common.UnderCountruction')->name('test_Humedades');
+Route::view('/testGranulometrico', 'common.UnderCountruction')->name('test_Granulometrico');
+Route::view('/testtamizado', 'common.UnderCountruction')->name('test_tamizado');
 //catalogo
 Route::get('/catalogos', [CatalogosController::class, 'index'])->name('catalogos.index');
 //Rutas para agregar
@@ -40,7 +44,7 @@ Route::get('/obtenerProyectos/{clienteId}', [SondeoController::class, 'obtenerPr
 
 Route::get('/ObtenerSondeos/{proyectoid}', [SondeoController::class, 'ObtenerSondeos'])->name('ObtenerSondeos');
 
-Route::post('/sondeoAdd', [SondeoController::class, 'store']);
+Route::post('/sondeoAdd', [SondeoController::class, 'store'])->name('sondeoAdd');
 
 //Muestras
 Route::get('/muestras', [MuestrasController::class, 'index'])->name('muestras');
