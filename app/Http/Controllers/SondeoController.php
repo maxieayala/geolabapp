@@ -10,6 +10,7 @@ use App\Models\Sondeo;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class SondeoController extends Controller
 {
@@ -20,17 +21,15 @@ class SondeoController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         $search_query = request('search');
         try {
 
             $sondeos = Sondeo::getPaginatedData($search_query);
         } catch (\Throwable $th) {
-            return back()->with('error', 'Hubo un error');
+            return view('sondeos.index')->with('error', $th->getMessage());
         }
 
         $grafico = $this->stackedColumnChart();
@@ -38,7 +37,10 @@ class SondeoController extends Controller
         return view('sondeos.index', compact('sondeos'));
     }
 
-    public function create()
+    /**
+     * Esta función muestra el formulario para crear un nuevo sondeo.
+     */
+    public function create(): View
     {
         $tiposSondeo = catalogo::where('id_padre', '=', '1')->get();
         //Mostame los clientes que tengan proyectos activos
@@ -51,12 +53,7 @@ class SondeoController extends Controller
     }
 
     /**
-     * Esta función recupera todos los proyectos asociados con un ID de cliente determinado y los devuelve
-     * como una respuesta JSON.
-     *
-     * @param clienteId El parámetro "clienteId" es una variable que representa el ID de un cliente. Se
-     * utiliza en la función para recuperar todos los proyectos asociados con ese ID de cliente.
-     * @return Una respuesta JSON que contiene todos los proyectos asociados con el ID de cliente dado.
+     * @return \Illuminate\Http\JsonResponse
      */
     public function obtenerProyectos($clienteId)
     {
@@ -68,7 +65,6 @@ class SondeoController extends Controller
         // Mostrame solo los proyectos que esten activos
         $proyectos = Proyecto::where('cliente_id', $clienteId)
             ->where('status', 'Activo')
-            ->get()
             ->pluck('nombre', 'id');
 
         return response()->json($proyectos);

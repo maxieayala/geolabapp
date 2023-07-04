@@ -7,6 +7,7 @@ use App\Models\Cliente;
 use App\Models\Proyecto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\View\View;
 
 class ProyectosController extends Controller
 {
@@ -15,6 +16,11 @@ class ProyectosController extends Controller
         $this->middleware('auth');
     }
 
+    /**
+     * Display Proyectos
+     *
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
         $proyectos = Proyecto::with(['clientes' => function ($query) {
@@ -32,13 +38,22 @@ class ProyectosController extends Controller
         return view('proyectos.index', compact('proyectos'));
     }
 
-    public function create()
+    /**
+     * Create Proyecto
+     */
+    public function create(): View
     {
         $todos_los_clientes = Cliente::all();
 
         return view('proyectos.add', compact('todos_los_clientes'));
     }
 
+    /**
+     * Store Proyecto
+     *
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -67,21 +82,30 @@ class ProyectosController extends Controller
         return redirect()->route('proyectos');
     }
 
-    public function add()
+    /**
+     * Add Proyecto
+     */
+    public function add(): View
     {
         $clientes = Cliente::all();
 
         return view('proyectos.add', compact('clientes'));
     }
 
-    public function show($id)
+    /**
+     * Show Proyecto
+     */
+    public function show($id): View
     {
         $proyecto = Proyecto::findOrFail($id);
 
         return view('proyectos.show', compact('proyecto'));
     }
 
-    public function edit($id)
+    /**
+     * Edit Proyecto
+     */
+    public function edit($id): View
     {
         $proyecto = Proyecto::whereId($id)->first();
         $todos_los_clientes = Cliente::all();
@@ -89,6 +113,12 @@ class ProyectosController extends Controller
         return view('proyectos.edit', ['proyecto' => $proyecto, 'todos_los_clientes' => $todos_los_clientes]);
     }
 
+    /**
+     * Delete Proyecto
+     *
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function eliminar(Request $request, $id)
     {
         $proyecto = Proyecto::whereId($id)->first();
@@ -97,6 +127,12 @@ class ProyectosController extends Controller
         return redirect()->route('proyectos.index')->with('success', 'Proyecto eliminado exitosamente');
     }
 
+    /**
+     * Update Proyecto
+     *
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, $id)
     {
         $proyecto = Proyecto::findOrFail($id);
@@ -116,11 +152,11 @@ class ProyectosController extends Controller
         return redirect()->route('proyectos.show', $proyecto->id);
     }
 
-    public function export()
-    {
-        // return Excel::download(new UsersExport, 'users.xlsx');
-    }
-
+    /**
+     * Agregar un nuevo adjunto al proyecto
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function agregarAdjunto(Request $request, Proyecto $proyecto)
     {
         // Validar y procesar los datos del formulario

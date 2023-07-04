@@ -20,7 +20,7 @@ class Muestra extends Model
 
     public function sondeo()
     {
-        return $this->belongsTo(sondeo::class);
+        return $this->belongsTo(Sondeo::class);
     }
 
     /**
@@ -58,31 +58,5 @@ class Muestra extends Model
     public function creator()
     {
         return $this->belongsTo(User::class);
-    }
-
-    /**
-     * Get muestra coordinate attribute.
-     *
-     * @return string|null
-     */
-    public function getCoordinateAttribute()
-    {
-        if ($this->latitud && $this->longitud) {
-            return $this->latitud.', '.$this->longitud;
-        }
-    }
-
-    /**
-     * Get muestra map_popup_content attribute.
-     *
-     * @return string
-     */
-    public function getMapPopupContentAttribute()
-    {
-        $mapPopupContent = '';
-        $mapPopupContent .= '<div class="my-2"><strong>'.__('muestra.name').':</strong><br>'.$this->name_link.'</div>';
-        $mapPopupContent .= '<div class="my-2"><strong>'.__('muestra.coordinate').':</strong><br>'.$this->coordinate.'</div>';
-
-        return $mapPopupContent;
     }
 }

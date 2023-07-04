@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Muestra;
 use App\Models\Proyecto;
-use App\Models\Sondeo;
 use App\Models\User;
 use App\Rules\MatchOldPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\View\View;
 
 class HomeController extends Controller
 {
@@ -25,23 +25,11 @@ class HomeController extends Controller
 
     /**
      * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(): View
     {
-        // $usersCount = Muestra::where('status', 'active')->count();
         $total_proyectos = Proyecto::count();
         $total_muestras = Muestra::count();
-
-        //    $sondeosPorMes = Sondeo::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
-        //         ->whereYear('created_at', date('Y'))
-        //         ->groupBy(DB::raw("month_name"))
-        //         ->orderBy('id', 'ASC')
-        //         ->pluck('count', 'month_name');
-
-        //     $labels = $sondeosPorMes->keys();
-        //     $data = $sondeosPorMes->values();
         $sondeosPorMes = DB::table('sondeos')
             ->select(DB::raw('MONTHNAME(fecha) as mes, COUNT(*) as total'))
             ->groupBy('mes')
@@ -53,12 +41,11 @@ class HomeController extends Controller
     /**
      * User Profile
      *
-     * @param Nill
-     * @return View Profile
      *
-     * @author Shani Singh
+     *
+     * @author
      */
-    public function getProfile()
+    public function getProfile(): View
     {
         return view('profile');
     }
@@ -66,10 +53,7 @@ class HomeController extends Controller
     /**
      * Update Profile
      *
-     * @param $profileData
-     * @return bool With Success Message
-     *
-     * @author Shani Singh
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function updateProfile(Request $request)
     {
@@ -93,22 +77,18 @@ class HomeController extends Controller
             //Commit Transaction
             DB::commit();
 
-            //Return To Profile page with success
-            return back()->with('success', 'Se  actualizo de manera exitosa');
+            return redirect()->back()->with('success', 'Se  actualizo de manera exitosa');
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            return back()->with('error', $th->getMessage());
+            return redirect()->back()->with('error', 'Hubo un error al actualizar el perfil');
         }
     }
 
     /**
      * Change Password
      *
-     * @param Old Password, New Password, Confirm New Password
-     * @return bool With Success Message
-     *
-     * @author Shani Singh
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function changePassword(Request $request)
     {
@@ -128,11 +108,12 @@ class HomeController extends Controller
             DB::commit();
 
             //Return To Profile page with success
-            return back()->with('success', 'Se realizo el cambio de Contraseña');
+
+            return redirect()->back()->with('success', 'Se realizo el cambio de Contraseña');
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            return back()->with('error', $th->getMessage());
+            return redirect()->back()->with('error', 'Hubo un error al actualizar la contraseña');
         }
     }
 }

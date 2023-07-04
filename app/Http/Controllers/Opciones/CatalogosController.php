@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\opciones\Catalogo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class CatalogosController extends Controller
 {
@@ -17,9 +18,9 @@ class CatalogosController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(): View
     {
         $Catalogos = Catalogo::whereNull('id_padre')->get();
 
@@ -29,9 +30,9 @@ class CatalogosController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function store()
+    public function store(): View
     {
         $catalogos = Catalogo::all();
 
@@ -69,7 +70,7 @@ class CatalogosController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\opciones\Catalogo  $catalogo
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function show($id)   //muestra los catalogos en la tabla
     {
@@ -81,8 +82,8 @@ class CatalogosController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\opciones\Catalogo  $catalogo
-     * @return \Illuminate\Http\Response
+     * @param  int  $id
+     * @return \Illuminate\View\View
      */
     public function edit($id) //llamo vista para editar catalogo
     {

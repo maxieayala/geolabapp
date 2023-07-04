@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Muestras;
 
 use App\Http\Controllers\Controller;
 use App\Models\Muestra;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class MuestrasController extends Controller
 {
@@ -13,12 +14,7 @@ class MuestrasController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(): View
     {
         $muestraQuery = Muestra::query();
         $muestraQuery->where('name', 'like', '%'.request('q').'%');
@@ -29,21 +25,16 @@ class MuestrasController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): View
     {
-
         return view('muestras.create');
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $this->authorize('create', new muestra);
 
@@ -63,7 +54,7 @@ class MuestrasController extends Controller
     /**
      * Display the specified resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function show(Muestra $muestra)
     {
@@ -73,7 +64,7 @@ class MuestrasController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function edit(Muestra $muestra)
     {
@@ -85,7 +76,7 @@ class MuestrasController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Muestra $muestra)
     {
@@ -105,7 +96,7 @@ class MuestrasController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Muestra $muestra, Request $request)
     {
@@ -117,6 +108,6 @@ class MuestrasController extends Controller
             return redirect()->route('muestras.index');
         }
 
-        return back();
+        return redirect()->back()->with('success', 'Se  actualizo de manera exitosa');
     }
 }

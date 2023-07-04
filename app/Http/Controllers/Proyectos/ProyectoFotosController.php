@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Proyectos;
 
 use App\Http\Controllers\Controller;
 use App\Models\proyecto\ProyectosFotos;
-use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ProyectoFotosController extends Controller
 {
@@ -15,71 +15,19 @@ class ProyectoFotosController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
-        //
+        $proyectos_fotos = ProyectosFotos::all();
+
+        return view('proyectos.fotos.index', compact('proyectos_fotos'));
     }
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): view
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ProyectosFotos $proyectosFotos)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ProyectosFotos $proyectosFotos)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, ProyectosFotos $proyectosFotos)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ProyectosFotos $proyectosFotos)
-    {
-        //
+        return view('proyectos.fotos.add');
     }
 }

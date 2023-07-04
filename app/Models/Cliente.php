@@ -6,7 +6,7 @@ use App\Models\Opciones\Catalogo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class cliente extends Model
+class Cliente extends Model
 {
     use HasFactory;
 
@@ -20,9 +20,17 @@ class cliente extends Model
 
     ];
 
-    public function gettipocliente()
+    /**
+     * Get the user that owns the Cliente
+     *
+     * @return object
+     */
+    public function gettipoCliente()
     {
-        return Catalogo::where('id', $this->tipocliente_id)->pluck('nombre')->first();
+        $query = Catalogo::where('id', $this->tipocliente_id);
+        $first_catalogo = $query->first();
+
+        return $first_catalogo;
     }
 
     // customerOrders

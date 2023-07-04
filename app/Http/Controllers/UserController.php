@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Models\Role;
 
@@ -29,14 +30,9 @@ class UserController extends Controller
     }
 
     /**
-     * List User
-     *
-     * @param Nill
-     * @return array $user
-     *
-     * @author Shani Singh
+     * List Users
      */
-    public function index()
+    public function index(): View
     {
         $users = User::with('roles')->paginate(10);
 
@@ -46,12 +42,11 @@ class UserController extends Controller
     /**
      * Create User
      *
-     * @param Nill
-     * @return array $user
      *
-     * @author Shani Singh
+     *
+     * @author
      */
-    public function create()
+    public function create(): View
     {
         $roles = Role::all();
 
@@ -61,9 +56,7 @@ class UserController extends Controller
     /**
      * Store User
      *
-     * @return View Users
-     *
-     * @author Shani Singh
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -101,7 +94,6 @@ class UserController extends Controller
             DB::commit();
 
             return redirect()->route('users.index')->with('success', 'Se creo de manera exitosa');
-
         } catch (\Throwable $th) {
             // Rollback and return with Error
             DB::rollBack();
@@ -114,9 +106,9 @@ class UserController extends Controller
      * Update Status Of User
      *
      * @param  int  $status
-     * @return List Page With Success
+     * @return \Illuminate\Http\RedirectResponse
      *
-     * @author Shani Singh
+     * @author
      */
     public function updateStatus($user_id, $status)
     {
@@ -156,12 +148,9 @@ class UserController extends Controller
     /**
      * Edit User
      *
-     * @param  int  $user
-     * @return Collection $user
-     *
-     * @author Shani Singh
+     * @author
      */
-    public function edit(User $user)
+    public function edit(User $user): View
     {
         $roles = Role::all();
 
@@ -175,9 +164,9 @@ class UserController extends Controller
      * Update User
      *
      * @param  Request  $request, User $user
-     * @return View Users
+     * @return \Illuminate\Http\RedirectResponse
      *
-     * @author Shani Singh
+     * @author
      */
     public function update(Request $request, User $user)
     {
@@ -214,7 +203,6 @@ class UserController extends Controller
             DB::commit();
 
             return redirect()->route('users.index')->with('success', 'Se  actualizo de manera exitosa');
-
         } catch (\Throwable $th) {
             // Rollback and return with Error
             DB::rollBack();
@@ -226,9 +214,9 @@ class UserController extends Controller
     /**
      * Delete User
      *
-     * @return Index Users
+     * @return \Illuminate\Http\RedirectResponse
      *
-     * @author Shani Singh
+     * @author
      */
     public function delete(User $user)
     {
@@ -240,7 +228,6 @@ class UserController extends Controller
             DB::commit();
 
             return redirect()->route('users.index')->with('success', 'Usuario Eliminado!.');
-
         } catch (\Throwable $th) {
             DB::rollBack();
 
@@ -250,11 +237,8 @@ class UserController extends Controller
 
     /**
      * Import Users
-     *
-     * @param null
-     * @return View File
      */
-    public function importUsers()
+    public function importUsers(): View
     {
         return view('users.import');
     }

@@ -7,6 +7,7 @@ use App\Models\Cliente;
 use App\Models\Opciones\Catalogo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class ClientesController extends Controller
 {
@@ -17,10 +18,8 @@ class ClientesController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
         $clientes = Cliente::paginate(10);
 
@@ -30,7 +29,7 @@ class ClientesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -39,13 +38,12 @@ class ClientesController extends Controller
         $tipo_clientes = catalogo::where('id_padre', '=', '1')->get();
 
         return view('clientes.add', ['tipo_clientes' => $tipo_clientes]);
-
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @return \Illuminate\Http\Response
+     *@return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -85,50 +83,14 @@ class ClientesController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Cliente $cliente)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Cliente  $cliente
-     * @return \Illuminate\Http\Response
+     * @param  int  $id
      */
-    public function edit($id)
+    public function edit($id): View
     {
         $cliente = Cliente::whereId($id)->first();
 
         return view('clientes.edit', ['cliente' => $cliente]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Cliente $cliente)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Cliente $cliente)
-    {
-        //
-    }
-
-    public function export()
-    {
-        // return Excel::download(new UsersExport, 'users.xlsx');
     }
 }
