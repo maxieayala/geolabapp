@@ -4,7 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * Class Sondeo
+ *
+ * @property int $id
+ * @property string $coordenada_x
+ * @property string $coordenada_y
+ * @property string $estacion
+ * @property string $banda
+ * @property int $tipo_sondeo_id
+ * @property int $proyecto_id
+ *
+ * @mixins \Eloquent
+ */
 class Sondeo extends Model
 {
     use HasFactory;
@@ -21,11 +36,21 @@ class Sondeo extends Model
         'instrumentacion',
     ];
 
+    /**
+     * Get the tipo_sondeo that owns the sondeo.
+     *
+     *  @return hasMany
+     */
     public function muestras()
     {
         return $this->hasMany(Muestra::class);
     }
 
+    /**
+     * Get the tipo_sondeo that owns the sondeo.
+     *
+     *  @return BelongsTo
+     */
     public function proyecto()
     {
         return $this->belongsTo(Proyecto::class);

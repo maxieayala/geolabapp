@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
-use Illuminate\View\View;
 
 class RolesController extends Controller
 {
@@ -26,8 +26,6 @@ class RolesController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\View\View
      */
     public function index(): View
     {
@@ -40,8 +38,6 @@ class RolesController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\View\View
      */
     public function create(): View
     {
@@ -80,7 +76,6 @@ class RolesController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\View\View
      */
     public function edit($id): View
     {
@@ -124,7 +119,7 @@ class RolesController extends Controller
         } catch (\Throwable $th) {
             DB::rollback();
 
-            return redirect()->route('roles.edit', ['role' => $role])->with('error', $th->getMessage());
+            return redirect()->route('roles.edit')->with('error', $th->getMessage());
         }
     }
 

@@ -17,8 +17,6 @@ class CatalogosController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\View\View
      */
     public function index(): View
     {
@@ -29,8 +27,6 @@ class CatalogosController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\View\View
      */
     public function store(): View
     {

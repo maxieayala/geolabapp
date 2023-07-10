@@ -23,9 +23,6 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     */
     public function index(): View
     {
         $total_proyectos = Proyecto::count();
@@ -40,7 +37,6 @@ class HomeController extends Controller
 
     /**
      * User Profile
-     *
      *
      *
      * @author

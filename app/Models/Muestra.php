@@ -4,7 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * Class Muestra
+ *
+ * @property int $id
+ * @property int $sondeo_id
+ * @property string $desde
+ * @property string $hasta
+ * @property string $descripcionvisual
+ */
 class Muestra extends Model
 {
     use HasFactory;
@@ -18,6 +28,11 @@ class Muestra extends Model
         'descripcionvisual',
     ];
 
+    /**
+     * Get the sondeo that owns the muestra.
+     *
+     *  @return BelongsTo
+     */
     public function sondeo()
     {
         return $this->belongsTo(Sondeo::class);
@@ -53,7 +68,7 @@ class Muestra extends Model
     /**
      * muestra belongs to User model relation.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function creator()
     {

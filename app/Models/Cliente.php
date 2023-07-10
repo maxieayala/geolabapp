@@ -5,7 +5,21 @@ namespace App\Models;
 use App\Models\Opciones\Catalogo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * Class Cliente
+ *
+ * @property int $id
+ * @property string $nombre
+ * @property string $email
+ * @property string $telefono
+ * @property int $tipocliente_id
+ * @property string $ruc
+ * @property string $direccion
+ *
+ * @mixins \Eloquent
+ */
 class Cliente extends Model
 {
     use HasFactory;
@@ -17,7 +31,6 @@ class Cliente extends Model
         'tipocliente_id',
         'ruc',
         'direccion',
-
     ];
 
     /**
@@ -27,13 +40,18 @@ class Cliente extends Model
      */
     public function gettipoCliente()
     {
-        $query = Catalogo::where('id', $this->tipocliente_id);
+        $tipo = $this->tipocliente_id;
+        $query = Catalogo::where('id', $tipo);
         $first_catalogo = $query->first();
 
         return $first_catalogo;
     }
 
-    // customerOrders
+    /**
+     * Get all of the proyectos for the Cliente
+     *
+     * @return hasMany
+     */
     public function Proyecto()
     {
         return $this->hasMany(Proyecto::class);

@@ -15,8 +15,8 @@
     <link rel="shortcut icon" type="image/jpg" href="{{ asset('images/icon.png') }}" />
 
     <!-- Font Awesome UI KIT-->
-    <script src="https://kit.fontawesome.com/f75ab26951.js" crossorigin="anonymous"></script>
-
+    {{-- <script src="https://kit.fontawesome.com/f75ab26951.js" crossorigin="anonymous"></script> --}}
+    <link href="{{ asset('admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
 
 
     <link

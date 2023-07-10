@@ -143,10 +143,9 @@ class SondeoController extends Controller
 
     public function edit(Sondeo $sondeo)
     {
-        $tiposSondeo = Catalogo::all();
-        $proyectos = Proyecto::all();
 
-        return view('sondeos.edit', compact('sondeo', 'tiposSondeo', 'proyectos'));
+        $muestras = Muestra::where('sondeo_id', $sondeo->id);
+        return view('sondeos.edit', compact('sondeo','muestras'));
     }
 
     public function update(Request $request, Sondeo $sondeo)

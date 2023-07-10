@@ -46,7 +46,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered" id="SondeoTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th width="5%"><i class="fa fa-id-badge" aria-hidden="true"></i> Cliente</th>
@@ -74,7 +74,7 @@
                                             class="btn btn-primary m-2">
                                             <i class="fas fa-map"></i>
                                         </a>
-                                        <a href="{{ route('sondeo.update', ['sondeo' => $sondeo->id]) }}"
+                                        <a href="{{ route('sondeo.edit', ['sondeo' => $sondeo]) }}"
                                             class="btn btn-primary m-2">
                                             <i class="fa fa-pen"></i>
                                         </a>
@@ -116,5 +116,6 @@
 @section('scripts')
 
     @include('sondeos.mapasondeo')
+
 
 @endsection

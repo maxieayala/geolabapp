@@ -13,7 +13,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#taTpDropDownMuestras"
             aria-expanded="true" aria-controls="taTpDropDown">
-            <i class="fas fa-campground"></i>
+            <i class="fas fa-building"></i>
             <span>Sondeos</span>
         </a>
         <div id="taTpDropDownMuestras" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
